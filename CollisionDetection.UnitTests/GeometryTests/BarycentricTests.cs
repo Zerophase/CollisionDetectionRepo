@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace CollisionDetection.UnitTests.GeometryTests
 {
+	// TODO Make tests pass for Vectors on (1f, 1f), and other pairs with same numbers
 	[TestFixture]
 	public class BarycentricTests
 	{
@@ -30,31 +31,6 @@ namespace CollisionDetection.UnitTests.GeometryTests
 			new object[] {-3.5f, 1.5f, 3.0f, new Vector2(5f, -5f)}
 		};
 
-		// Not sure if Vector3 coordinates are correct for testing
-		// outside of Triangle
-		// 0001f
-		private static object[] outsideCasesVector3 =
-		{
-			new object[] {3.0f, -2.0f, 0f, new Vector3(-5f, -5f, -5f)},
-			new object[] {-1.1666f, 2.1666f, 0f, new Vector3(0f, 5f, 5f)},
-			new object[] {1.3333f, -0.3333f, 0f, new Vector3(5f, -5f, -5f)}
-		};
-
-		private static object[] onLineCasesVector2 =
-		{
-			new object[] {0.5f, 0.0f, 0.5f, new Vector2(-0.5f, 0.0f)},
-			new object[] {0.0f, 0.5f, 0.5f, new Vector2(0.5f, 0.0f)},
-			new object[] {0.5f, 0.5f, 0.0f, new Vector2(0.0f, 1.0f)}
-		};
-
-		private static object[] onLineCasesVector3 =
-		{
-			new object[] {0.5f, 0.5f, 0.0f, new Vector3(0.0f, 0.0f, 0.0f)},
-			new object[] {0.0f, 0.5f, 0.5f, new Vector3(0.5f, 1.0f, 0.0f)},
-			new object[] {0.5f, 0.0f, 0.5f, new Vector3(-0.5f, 0.0f, -1.0f)}
-		};
-
-		// TODO Make tests pass for Vectors on (1f, 1f), and other pairs with same numbers
 		[Test, TestCaseSource("outsideCasesVector2")]
 		public void BarycentricVector2_OutsideOfTriangle_OutWeightings(
 			float expectedU, float expectedV, float expectedW, Vector2 testVector)
@@ -85,6 +61,13 @@ namespace CollisionDetection.UnitTests.GeometryTests
 			Assert.That(w, Is.EqualTo(expectedW).Using(floatTolerance));
 		}
 
+		private static object[] onLineCasesVector2 =
+		{
+			new object[] {0.5f, 0.0f, 0.5f, new Vector2(-0.5f, 0.0f)},
+			new object[] {0.0f, 0.5f, 0.5f, new Vector2(0.5f, 0.0f)},
+			new object[] {0.5f, 0.5f, 0.0f, new Vector2(0.0f, 1.0f)}
+		};
+
 		[Test, TestCaseSource("onLineCasesVector2")]
 		public void BarycentricVector2_OnCenterOfLineSegments_OutWeightings(
 			float expectedU, float expectedV, float expectedW, Vector2 centerOfLine)
@@ -97,6 +80,16 @@ namespace CollisionDetection.UnitTests.GeometryTests
 			Assert.That(v, Is.EqualTo(expectedV).Using(floatTolerance));
 			Assert.That(w, Is.EqualTo(expectedW).Using(floatTolerance));
 		}
+
+		// Not sure if Vector3 coordinates are correct for testing
+		// outside of Triangle
+		// 0001f
+		private static object[] outsideCasesVector3 =
+		{
+			new object[] {3.0f, -2.0f, 0.0f, new Vector3(-5f, -5f, -5f)},
+			new object[] {-2.0f, 3.0f, 0.0f, new Vector3(0f, 5f, 5f)},
+			new object[] {3.0f, -2.0f, 0.0f, new Vector3(5f, -5f, -5f)}
+		};
 
 		[Test, TestCaseSource("outsideCasesVector3")]
 		public void BarycentricVector3_OutsideOfTriangle_OutWeightings(
@@ -128,6 +121,13 @@ namespace CollisionDetection.UnitTests.GeometryTests
 			Assert.That(w, Is.EqualTo(expectedW).Using(floatTolerance));
 		}
 
+		private static object[] onLineCasesVector3 =
+		{
+			new object[] {0.5f, 0.5f, 0.0f, new Vector3(0.0f, 0.0f, 0.0f)},
+			new object[] {0.0f, 0.5f, 0.5f, new Vector3(0.5f, 1.0f, 0.0f)},
+			new object[] {0.5f, 0.0f, 0.5f, new Vector3(-0.5f, 0.0f, -1.0f)}
+		};
+
 		[Test, TestCaseSource("onLineCasesVector3")]
 		public void BarycentricVector3_OnCenterOfLineSegments_OutWeightings(
 			float expectedU, float expectedV, float expectedW, Vector3 centerOfLine)
@@ -139,6 +139,18 @@ namespace CollisionDetection.UnitTests.GeometryTests
 			Assert.That(u, Is.EqualTo(expectedU).Using(floatTolerance));
 			Assert.That(v, Is.EqualTo(expectedV).Using(floatTolerance));
 			Assert.That(w, Is.EqualTo(expectedW).Using(floatTolerance));
+		}
+
+		[Test]
+		public void TestPointInTriangleVector3_PointInTriangle_ReturnTrue()
+		{
+			Vector3 vectorInTriangle = new Vector3( 0.0f, 0.333f, -0.333f);
+
+			var expected = true;
+			var result = GeometryChecks.TestPointInTriangle(vector3One, vector3Two, vector3Three,
+				vectorInTriangle);
+			
+			Assert.True(expected == result);
 		}
 	}
 }
