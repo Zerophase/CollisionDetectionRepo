@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{46F25A62-2E29-48CB-95F3-BDBCB0976DDC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Zenject</RootNamespace>
+    <AssemblyName>Zenject</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <IntermediateOutputPath>..\..\..\..\..\AssemblyBuild\Temp\Debug\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\..\..\..\..\AssemblyBuild\Temp\Debug\</BaseIntermediateOutputPath>
+    <OutputPath>..\..\..\..\..\AssemblyBuild\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <IntermediateOutputPath>..\..\..\..\..\AssemblyBuild\Temp\Release\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\..\..\..\..\AssemblyBuild\Temp\Release\</BaseIntermediateOutputPath>
+    <OutputPath>..\..\..\..\..\AssemblyBuild\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\AssemblyBuild\Libraries\Unity\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Assert.cs" />
+    <Compile Include="..\..\Log.cs" />
+    <Compile Include="..\..\ProfileBlock.cs" />
+    <Compile Include="Binders\Binder.cs" />
+    <Compile Include="Binders\BinderGeneric.cs" />
+    <Compile Include="Binders\BinderUntyped.cs" />
+    <Compile Include="Binders\BindingConditionSetter.cs" />
+    <Compile Include="Binders\BindScope.cs" />
+    <Compile Include="Binders\IdentifierSetter.cs" />
+    <Compile Include="Binders\InjectContext.cs" />
+    <Compile Include="Binders\ReferenceBinder.cs" />
+    <Compile Include="Binders\ValueBinder.cs" />
+    <Compile Include="Exceptions\ZenjectException.cs" />
+    <Compile Include="Factories\Factory.cs" />
+    <Compile Include="Factories\FactoryCustom.cs" />
+    <Compile Include="Factories\FactoryMethod.cs" />
+    <Compile Include="Factories\FactoryMethodUntyped.cs" />
+    <Compile Include="Factories\FactoryUntyped.cs" />
+    <Compile Include="Factories\GameObjectFactory.cs" />
+    <Compile Include="Factories\GameObjectInstantiator.cs" />
+    <Compile Include="Factories\IFactory.cs" />
+    <Compile Include="Factories\IFactoryUntyped.cs" />
+    <Compile Include="Factories\InstantiateUtil.cs" />
+    <Compile Include="Factories\Instantiator.cs" />
+    <Compile Include="Factories\IValidatable.cs" />
+    <Compile Include="Factories\IValidatableFactory.cs" />
+    <Compile Include="Factories\KeyedFactory.cs" />
+    <Compile Include="Factories\ListFactory.cs" />
+    <Compile Include="Injection\FieldsInjecter.cs" />
+    <Compile Include="Injection\InjectableInfo.cs" />
+    <Compile Include="Injection\InjectionHelper.cs" />
+    <Compile Include="Injection\TypeAnalyzer.cs" />
+    <Compile Include="Main\BindingValidator.cs" />
+    <Compile Include="Main\CompositionRoot.cs" />
+    <Compile Include="Main\CompositionRootHelper.cs" />
+    <Compile Include="Main\DiContainer.cs" />
+    <Compile Include="Main\GlobalCompositionRoot.cs" />
+    <Compile Include="Main\GlobalInstallerConfig.cs" />
+    <Compile Include="Main\IInstaller.cs" />
+    <Compile Include="Main\Installer.cs" />
+    <Compile Include="Main\MonoInstaller.cs" />
+    <Compile Include="Misc\DisposableManager.cs" />
+    <Compile Include="Misc\DisposablePrioritiesInstaller.cs" />
+    <Compile Include="Misc\FixedTickablePrioritiesInstaller.cs" />
+    <Compile Include="Misc\IDependencyRoot.cs" />
+    <Compile Include="Misc\IInitializable.cs" />
+    <Compile Include="Misc\InitializableManager.cs" />
+    <Compile Include="Misc\InitializablePrioritiesInstaller.cs" />
+    <Compile Include="Misc\InjectAttribute.cs" />
+    <Compile Include="Misc\ITickable.cs" />
+    <Compile Include="Misc\KernelUtil.cs" />
+    <Compile Include="Misc\LookupInProgressAdder.cs" />
+    <Compile Include="Misc\StandardUnityInstaller.cs" />
+    <Compile Include="Misc\TaskUpdater.cs" />
+    <Compile Include="Misc\TickableManager.cs" />
+    <Compile Include="Misc\TickablePrioritiesInstaller.cs" />
+    <Compile Include="Misc\UnityDependencyRoot.cs" />
+    <Compile Include="Misc\UnityEventManager.cs" />
+    <Compile Include="Misc\ZenUtil.cs" />
+    <Compile Include="Providers\DiContainerProvider.cs" />
+    <Compile Include="Providers\GameObjectProvider.cs" />
+    <Compile Include="Providers\GameObjectTransientProviderFromPrefab.cs" />
+    <Compile Include="Providers\InstanceProvider.cs" />
+    <Compile Include="Providers\MethodProvider.cs" />
+    <Compile Include="Providers\MonoBehaviourSingletonProvider.cs" />
+    <Compile Include="Providers\ProviderBase.cs" />
+    <Compile Include="Providers\SingletonId.cs" />
+    <Compile Include="Providers\SingletonLazyCreator.cs" />
+    <Compile Include="Providers\SingletonProvider.cs" />
+    <Compile Include="Providers\SingletonProviderMap.cs" />
+    <Compile Include="Providers\TransientProvider.cs" />
+    <Compile Include="Util\DecoratorInstaller.cs" />
+    <Compile Include="Util\LinqExtensions.cs" />
+    <Compile Include="Util\MiscExtensions.cs" />
+    <Compile Include="Util\ReflectionUtil.cs" />
+    <Compile Include="Util\SceneDecoratorCompositionRoot.cs" />
+    <Compile Include="Util\Tuple.cs" />
+    <Compile Include="Util\TypeExtensions.cs" />
+    <Compile Include="Util\UnityUtil.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

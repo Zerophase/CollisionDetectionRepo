@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EF08837B-4702-42A0-9BF9-8223F680E9DA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Zenject_tests</RootNamespace>
+    <AssemblyName>Zenject-tests</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <IntermediateOutputPath>..\..\..\..\..\..\AssemblyBuild\Temp\Debug\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\..\..\..\..\..\AssemblyBuild\Temp\Debug\</BaseIntermediateOutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\..\..\AssemblyBuild\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\UnityProject\Assets\Zenject\Extras\ZenjectUnitTests\Lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\AssemblyBuild\Libraries\Unity\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Main\Scripts\Zenject.csproj">
+      <Project>{46f25a62-2e29-48cb-95f3-bdbcb0976ddc}</Project>
+      <Name>Zenject</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TestAllInjectionTypes.cs" />
+    <Compile Include="TestBaseClassPropertyInjection.cs" />
+    <Compile Include="TestBindScope.cs" />
+    <Compile Include="TestBothInterfaceAndConcreteBoundToSameSingleton.cs" />
+    <Compile Include="TestCircularDependencies.cs" />
+    <Compile Include="TestConditionsFieldName.cs" />
+    <Compile Include="TestConditionsIdentifier.cs" />
+    <Compile Include="TestConditionsParents.cs" />
+    <Compile Include="TestConditionsTarget.cs" />
+    <Compile Include="TestConditionsTargetInstance.cs" />
+    <Compile Include="TestConstructorInjection.cs" />
+    <Compile Include="TestDiContainer.cs" />
+    <Compile Include="TestDuplicateInjection.cs" />
+    <Compile Include="TestFactory.cs" />
+    <Compile Include="TestFactoryNullArgs.cs" />
+    <Compile Include="TestGenericContract.cs" />
+    <Compile Include="TestListComparer.cs" />
+    <Compile Include="TestListInjection.cs" />
+    <Compile Include="TestMoq.cs" />
+    <Compile Include="TestMultiBind.cs" />
+    <Compile Include="TestMultiBindAgain.cs" />
+    <Compile Include="TestMultipleInstallers.cs" />
+    <Compile Include="TestMultipleInterfaceSameSingle.cs" />
+    <Compile Include="TestNestedContainer.cs" />
+    <Compile Include="TestNullableValues.cs" />
+    <Compile Include="TestParameters.cs" />
+    <Compile Include="TestPostInjectCall.cs" />
+    <Compile Include="TestPropertyInjection.cs" />
+    <Compile Include="TestRebind.cs" />
+    <Compile Include="TestResolveMany.cs" />
+    <Compile Include="TestSameConstructorArgumentType.cs" />
+    <Compile Include="TestSingleton.cs" />
+    <Compile Include="TestStructInjection.cs" />
+    <Compile Include="TestTaskUpdater.cs" />
+    <Compile Include="TestTestOptional.cs" />
+    <Compile Include="TestTestUtil.cs" />
+    <Compile Include="TestTransientInjection.cs" />
+    <Compile Include="TestTransientMockProvider.cs" />
+    <Compile Include="TestUnbind.cs" />
+    <Compile Include="TestValidateInstaller.cs" />
+    <Compile Include="TestWithContainer.cs" />
+    <Compile Include="ZenjectProfileTest.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

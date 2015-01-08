@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{42AF9269-C589-D2C6-1ADD-AA39A723F4AC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>
+    </RootNamespace>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
+    <UnityVersion>4.6.1f1</UnityVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_4_6_1;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_4_6_1;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="Boo.Lang" />
+    <Reference Include="UnityScript.Lang" />
+    <Reference Include="UnityEngine">
+      <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>Assets\Zenject\Extras\ZenjectUnitTests\Lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Scripts\CollisionBoxes\Box2D.cs" />
+    <Compile Include="Assets\Scripts\CoordinateTests\GeometryChecks.cs" />
+    <Compile Include="Assets\Scripts\EqualityComparision\Float\FloatComparer.cs" />
+    <Compile Include="Assets\Scripts\EqualityComparision\Float\FloatComparerTolerance.cs" />
+    <Compile Include="Assets\Scripts\EqualityComparision\Vector3EqualityComparerWithTolerance.cs" />
+    <Compile Include="Assets\Scripts\Policies\Interfaces\IVectorPolicy.cs" />
+    <Compile Include="Assets\Scripts\Policies\Vector2Policy.cs" />
+    <Compile Include="Assets\Zenject\Assert.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Asteroid\Asteroid.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Asteroid\AsteroidManager.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Installers\AsteroidsDecoratorInstaller.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Installers\AsteroidsInstaller.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Main\GameController.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Main\GameEvent.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Misc\GuiHandler.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Misc\LevelHelper.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Misc\TilingBackground.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Ship\Ship.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Ship\ShipHooks.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Ship\ShipState.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Ship\ShipStateDead.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Ship\ShipStateFactory.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Ship\ShipStateMoving.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Ship\ShipStateWaitingToStart.cs" />
+    <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Util\UnityExtensionMethods.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestAllInjectionTypes.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestBaseClassPropertyInjection.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestBindScope.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestBothInterfaceAndConcreteBoundToSameSingleton.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestCircularDependencies.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestConditionsFieldName.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestConditionsIdentifier.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestConditionsParents.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestConditionsTarget.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestConditionsTargetInstance.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestConstructorInjection.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestDiContainer.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestDuplicateInjection.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestFactory.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestFactoryNullArgs.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestGenericContract.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestListComparer.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestListInjection.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestMoq.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestMultiBind.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestMultiBindAgain.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestMultipleInstallers.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestMultipleInterfaceSameSingle.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestNestedContainer.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestNullableValues.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestParameters.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestPostInjectCall.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestPropertyInjection.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestRebind.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestResolveMany.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestSameConstructorArgumentType.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestSingleton.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestStructInjection.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestTaskUpdater.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestTestOptional.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestTestUtil.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestTransientInjection.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestTransientMockProvider.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestUnbind.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestValidateInstaller.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\TestWithContainer.cs" />
+    <Compile Include="Assets\Zenject\Extras\ZenjectUnitTests\Scripts\ZenjectProfileTest.cs" />
+    <Compile Include="Assets\Zenject\Log.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Binders\BindScope.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Binders\Binder.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Binders\BinderGeneric.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Binders\BinderUntyped.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Binders\BindingConditionSetter.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Binders\IdentifierSetter.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Binders\InjectContext.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Binders\ReferenceBinder.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Binders\ValueBinder.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Exceptions\ZenjectException.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\Factory.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\FactoryCustom.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\FactoryMethod.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\FactoryMethodUntyped.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\FactoryUntyped.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\GameObjectFactory.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\GameObjectInstantiator.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\IFactory.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\IFactoryUntyped.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\IValidatable.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\IValidatableFactory.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\InstantiateUtil.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\Instantiator.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\KeyedFactory.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Factories\ListFactory.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Injection\FieldsInjecter.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Injection\InjectableInfo.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Injection\InjectionHelper.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Injection\TypeAnalyzer.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Main\BindingValidator.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Main\CompositionRoot.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Main\CompositionRootHelper.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Main\DiContainer.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Main\GlobalCompositionRoot.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Main\GlobalInstallerConfig.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Main\IInstaller.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Main\Installer.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Main\MonoInstaller.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\DisposableManager.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\DisposablePrioritiesInstaller.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\FixedTickablePrioritiesInstaller.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\IDependencyRoot.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\IInitializable.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\ITickable.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\InitializableManager.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\InitializablePrioritiesInstaller.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\InjectAttribute.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\KernelUtil.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\LookupInProgressAdder.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\StandardUnityInstaller.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\TaskUpdater.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\TickableManager.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\TickablePrioritiesInstaller.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\UnityDependencyRoot.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\UnityEventManager.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Misc\ZenUtil.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Providers\DiContainerProvider.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Providers\GameObjectProvider.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Providers\GameObjectTransientProviderFromPrefab.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Providers\InstanceProvider.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Providers\MethodProvider.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Providers\MonoBehaviourSingletonProvider.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Providers\ProviderBase.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Providers\SingletonId.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Providers\SingletonLazyCreator.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Providers\SingletonProvider.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Providers\SingletonProviderMap.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Providers\TransientProvider.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Util\DecoratorInstaller.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Util\LinqExtensions.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Util\MiscExtensions.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Util\ReflectionUtil.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Util\SceneDecoratorCompositionRoot.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Util\Tuple.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Util\TypeExtensions.cs" />
+    <Compile Include="Assets\Zenject\Main\Scripts\Util\UnityUtil.cs" />
+    <Compile Include="Assets\Zenject\ProfileBlock.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Zenject\Extras\SampleGame\Media\Fonts\Space.txt" />
+    <None Include="Assets\Zenject\Extras\SampleGame\Media\Imported\Shaders\Add_Layer.shader" />
+    <None Include="Assets\Zenject\Extras\SampleGame\Media\Imported\Shaders\AddSmooth_Layer.shader" />
+    <None Include="Assets\Zenject\Extras\SampleGame\Media\Imported\Shaders\Particle Alpha Blend_IgnoreFog.shader" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
+</Project>
