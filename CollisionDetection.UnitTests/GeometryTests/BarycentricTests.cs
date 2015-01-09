@@ -149,8 +149,8 @@ namespace CollisionDetection.UnitTests.GeometryTests
 			var expected = true;
 			var result = GeometryChecks.TestPointInTriangle(vector3One, vector3Two, vector3Three,
 				vectorInTriangle);
-			
-			Assert.True(expected == result);
+
+			Assert.AreEqual(expected, result);
 		}
 	}
 }
