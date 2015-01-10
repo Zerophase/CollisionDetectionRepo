@@ -178,3 +178,8 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+# Unity
+/CollisionDetection/Library
+/CollisionDetection/Temp
+/CollisionDetection/Obj
