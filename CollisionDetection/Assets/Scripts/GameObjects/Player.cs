@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using Assets.Scripts.CollisionBoxes.TwoD;
 
@@ -7,6 +8,9 @@ namespace Assets.Scripts.GameObjects
 	public class Player : MonoBehaviour, ICollider
 	{
 		private AABB2D boundingBox;
+		private Sphere2D sphere2D;
+
+		Vector2[] corners = new Vector2[4];
 
 		public AABB2D BoundingBox
 		{
@@ -26,6 +30,22 @@ namespace Assets.Scripts.GameObjects
 				"Half Width is: " + boundingBox.HalfWidth);
 
 			GameObject.Find("GameController").SendMessage("AddCollisionObjects", this);
+			Vector2[] squareCorners = new Vector2[]
+			{
+				new Vector2(boundingBox.Center.x + boundingBox.HalfWidth,
+					boundingBox.Center.y + boundingBox.HalfHeight), // (+,+)
+ 				new Vector2(boundingBox.Center.x + boundingBox.HalfWidth,
+					boundingBox.Center.y - boundingBox.HalfHeight), // (+, -)
+ 				new Vector2(boundingBox.Center.x - boundingBox.HalfWidth,
+					boundingBox.Center.y + boundingBox.HalfHeight), // (-, +)
+ 				new Vector2(boundingBox.Center.x - boundingBox.HalfWidth,
+					boundingBox.Center.y - boundingBox.HalfHeight) // (-,-)
+			};
+
+			corners = squareCorners;
+
+			sphere2D = new Sphere2D();
+			sphere2D.RitterSphere(squareCorners);
 		}
 
 		Vector2 moveRight = new Vector2(1.0f, 0.0f);
@@ -37,13 +57,15 @@ namespace Assets.Scripts.GameObjects
 			else if(Input.GetKey(KeyCode.LeftArrow))
 				UpdatePosition(-moveRight * 5f);
 			boundingBox.DrawBoundingBox();
+			sphere2D.DrawCenterLines();
 		}
 
 
 		public void UpdatePosition(Vector2 position)
 		{
-			boundingBox.Center += position * Time.deltaTime;
-			transform.Translate(position * Time.deltaTime);
+			//boundingBox.Center += position * Time.deltaTime;
+			//sphere2D.Center += position *Time.deltaTime;
+			//transform.Translate(position * Time.deltaTime);
 		}
 	}
 }
