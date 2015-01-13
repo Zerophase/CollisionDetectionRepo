@@ -1,18 +1,18 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
-using Assets.Scripts.CollisionBoxes.TwoD;
+using Assets.Scripts.CollisionBoxes.ThreeD;
 
 namespace Assets.Scripts.GameObjects
 {
 	public class Player : MonoBehaviour, ICollider
 	{
-		private AABB2D boundingBox;
+		private AABB3D boundingBox;
 		private Sphere2D sphere2D;
 
 		Vector2[] corners = new Vector2[4];
 
-		public AABB2D BoundingBox
+		public AABB3D BoundingBox
 		{
 			get { return boundingBox; }
 			set { boundingBox = value; }
@@ -21,9 +21,10 @@ namespace Assets.Scripts.GameObjects
 		void Start()
 		{
 			var boxCollider = gameObject.GetComponent<BoxCollider>();
-			boundingBox = new AABB2D(transform.position,
+			boundingBox = new AABB3D(transform.position,
 				(boxCollider.size.x)* transform.lossyScale.x,
-				(boxCollider.size.y) * transform.lossyScale.y);
+				(boxCollider.size.y) * transform.lossyScale.y,
+				boxCollider.size.z * transform.lossyScale.z);
 
 			Debug.Log("Center of AABB is: " + boundingBox.Center +
 				"Half Height is: " + boundingBox.HalfHeight +

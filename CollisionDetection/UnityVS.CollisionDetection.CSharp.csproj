@@ -59,8 +59,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CollisionBoxes\TwoD\AABB2D.cs" />
-    <Compile Include="Assets\Scripts\CollisionBoxes\TwoD\Sphere2D.cs" />
+    <Compile Include="Assets\Scripts\CollisionBoxes\ThreeD\AABB3D.cs" />
+    <Compile Include="Assets\Scripts\CollisionBoxes\ThreeD\Sphere2D.cs" />
     <Compile Include="Assets\Scripts\CoordinateTests\GeometryChecks.cs" />
     <Compile Include="Assets\Scripts\EqualityComparision\Float\FloatComparer.cs" />
     <Compile Include="Assets\Scripts\EqualityComparision\Float\FloatComparerTolerance.cs" />

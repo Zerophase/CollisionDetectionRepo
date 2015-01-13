@@ -50,8 +50,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CollisionBoxesTests\TwoD\AABB2D_IntersectionTests.cs" />
-    <Compile Include="CollisionBoxesTests\TwoD\AABB2D_Tests.cs" />
+    <Compile Include="CollisionBoxesTests\ThreeD\AABB3D_IntersectionTests.cs" />
+    <Compile Include="CollisionBoxesTests\ThreeD\AABB3D_Tests.cs" />
     <Compile Include="GeometryTests\PlaneTests.cs" />
     <Compile Include="GeometryTests\PolygonIntersectionTests.cs" />
     <Compile Include="GeometryTests\QuickhullAlgorithmTest.cs" />

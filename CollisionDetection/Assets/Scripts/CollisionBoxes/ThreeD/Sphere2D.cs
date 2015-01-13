@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scripts.CollisionBoxes.TwoD
+namespace Assets.Scripts.CollisionBoxes.ThreeD
 {
 	public class Sphere2D
 	{

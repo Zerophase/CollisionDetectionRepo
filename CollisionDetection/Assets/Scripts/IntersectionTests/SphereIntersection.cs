@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.CollisionBoxes.TwoD;
+﻿using Assets.Scripts.CollisionBoxes.ThreeD;
 using UnityEngine;
 
 namespace Assets.Scripts.IntersectionTests

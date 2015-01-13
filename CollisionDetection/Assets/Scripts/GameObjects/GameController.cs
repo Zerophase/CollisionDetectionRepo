@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Assets.Scripts.IntersectionTests;
-using Assets.Scripts.CollisionBoxes.TwoD;
+using Assets.Scripts.CollisionBoxes.ThreeD;
 
 namespace Assets.Scripts.GameObjects
 {
