@@ -110,9 +110,7 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 							modify.x += m[j][i]*a.center.z;
 							b.HalfWidth += Math.Abs(m[j][i])*a.HalfDepth;
 						}
-						
 					}
-
 					else if (i == 1)
 					{
 						if(j == 0)

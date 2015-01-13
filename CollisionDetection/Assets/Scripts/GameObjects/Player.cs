@@ -8,9 +8,7 @@ namespace Assets.Scripts.GameObjects
 	public class Player : MonoBehaviour, ICollider
 	{
 		private AABB3D boundingBox;
-		private Sphere2D sphere2D;
-
-		Vector2[] corners = new Vector2[4];
+		private Sphere3D sphere2D;
 
 		public AABB3D BoundingBox
 		{
@@ -31,21 +29,35 @@ namespace Assets.Scripts.GameObjects
 				"Half Width is: " + boundingBox.HalfWidth);
 
 			GameObject.Find("GameController").SendMessage("AddCollisionObjects", this);
-			Vector2[] squareCorners = new Vector2[]
+			Vector3[] squareCorners = new Vector3[]
 			{
-				new Vector2(boundingBox.Center.x + boundingBox.HalfWidth,
-					boundingBox.Center.y + boundingBox.HalfHeight), // (+,+)
- 				new Vector2(boundingBox.Center.x + boundingBox.HalfWidth,
-					boundingBox.Center.y - boundingBox.HalfHeight), // (+, -)
- 				new Vector2(boundingBox.Center.x - boundingBox.HalfWidth,
-					boundingBox.Center.y + boundingBox.HalfHeight), // (-, +)
- 				new Vector2(boundingBox.Center.x - boundingBox.HalfWidth,
-					boundingBox.Center.y - boundingBox.HalfHeight) // (-,-)
+				new Vector3(boundingBox.Center.x + boundingBox.HalfWidth,
+					boundingBox.Center.y + boundingBox.HalfHeight, 
+					boundingBox.Center.z + boundingBox.HalfDepth), // (+,+, +)
+ 				new Vector3(boundingBox.Center.x + boundingBox.HalfWidth,
+					boundingBox.Center.y - boundingBox.HalfHeight, 
+					boundingBox.Center.z + boundingBox.HalfDepth), // (+, -, +)
+ 				new Vector3(boundingBox.Center.x - boundingBox.HalfWidth,
+					boundingBox.Center.y + boundingBox.HalfHeight,
+					boundingBox.Center.z + boundingBox.HalfDepth), // (-, +, +)
+ 				new Vector3(boundingBox.Center.x - boundingBox.HalfWidth,
+					boundingBox.Center.y - boundingBox.HalfHeight,
+					boundingBox.Center.z + boundingBox.HalfDepth), // (-,-, +)
+				new Vector3(boundingBox.Center.x - boundingBox.HalfWidth,
+					boundingBox.Center.y - boundingBox.HalfHeight,
+					boundingBox.Center.z - boundingBox.HalfDepth),	// (-,-,-)
+				new Vector3(boundingBox.Center.x + boundingBox.HalfWidth,
+					boundingBox.Center.y - boundingBox.HalfHeight,
+					boundingBox.Center.z - boundingBox.HalfDepth), 	// (+,-,-)
+				new Vector3(boundingBox.Center.x - boundingBox.HalfWidth,
+					boundingBox.Center.y + boundingBox.HalfHeight,
+					boundingBox.Center.z + boundingBox.HalfDepth), 	// (-, +, +)
+				new Vector3(boundingBox.Center.x - boundingBox.HalfWidth,
+					boundingBox.Center.y + boundingBox.HalfHeight,
+					boundingBox.Center.z - boundingBox.HalfDepth), 	// (-, +, -)
 			};
 
-			corners = squareCorners;
-
-			sphere2D = new Sphere2D();
+			sphere2D = new Sphere3D();
 			sphere2D.RitterSphere(squareCorners);
 		}
 

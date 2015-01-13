@@ -41,16 +41,11 @@ namespace Assets.Scripts.GameObjects
 				boxCollider.size.y * transform.lossyScale.y,
 				boxCollider.size.z * transform.lossyScale.z);
 			rotationBox = new AABB3D(
-				Vector2.zero,
+				Vector3.zero,
 				boxCollider.size.x * transform.lossyScale.x,
 				boxCollider.size.y * transform.lossyScale.y,
 				boxCollider.size.z * transform.lossyScale.z);
 
-			Debug.Log("Center of AABB is: " + boundingBox.Center +
-				"Half Height is: " + boundingBox.HalfHeight +
-				"Half Width is: " + boundingBox.HalfWidth);
-
-			
 			GameObject.Find("GameController").SendMessage("AddCollisionObjects", this);
 		}
 
