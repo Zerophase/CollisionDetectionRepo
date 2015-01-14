@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\GameObjects\Player.cs" />
     <Compile Include="Assets\Scripts\IntersectionTests\AABBIntersection.cs" />
     <Compile Include="Assets\Scripts\IntersectionTests\SphereIntersection.cs" />
+    <Compile Include="Assets\Scripts\Maths\MathConversion.cs" />
     <Compile Include="Assets\Scripts\Policies\Interfaces\IVectorPolicy.cs" />
     <Compile Include="Assets\Scripts\Policies\Vector2Policy.cs" />
     <Compile Include="Assets\Zenject\Assert.cs" />

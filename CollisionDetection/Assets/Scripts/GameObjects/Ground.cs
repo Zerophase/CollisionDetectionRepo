@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq.Expressions;
 using Assets.Scripts.CollisionBoxes.ThreeD;
+using Assets.Scripts.Maths;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 
@@ -49,39 +50,19 @@ namespace Assets.Scripts.GameObjects
 			GameObject.Find("GameController").SendMessage("AddCollisionObjects", this);
 		}
 
-		//public static float[][] Matrix3x3(Quaternion rotation)
-		//{
-		//	float[][] matrix3x3 = new[]
-		//	{
-		//		new float[3],
-		//		new float[3],
-		//		new float[3]
-		//	};
-
-		//	matrix3x3[0][0] = rotation.x*2f;
-		//	matrix3x3[0][1] = rotation.y*2.0f;
-		//	matrix3x3[0][2] = rotation.z*2.0f;
-		//	matrix3x3[1][0] = rotation.x*matrix3x3[0][0];
-		//	matrix3x3[1][1] = rotation.y*matrix3x3[0][1];
-		//	matrix3x3[1][2] = rotation.z*matrix3x3[0][2];
-		//	matrix3x3[2][0] = rotation.
-
-		//	return matrix3x3;
-		//}
-
 		public void Update()
 		{
-			matrix4X4 = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
+			//matrix4X4 = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
 
-			for (int i = 0; i < 4; i++)
-			{
-				for (int j = 0; j < 4; j++)
-				{
-					rotation[i][j] = matrix4X4[i, j];
-				}
-			}
+			//for (int i = 0; i < 4; i++)
+			//{
+			//	for (int j = 0; j < 4; j++)
+			//	{
+			//		rotation[i][j] = matrix4X4[i, j];
+			//	}
+			//}
 
-			boundingBox.UpdateAABB(rotationBox, rotation, transform.position, ref boundingBox);
+			boundingBox.UpdateAABB(rotationBox, transform.rotation.QuaternionTo3x3(), transform.position, ref boundingBox);
 			boundingBox.DrawBoundingBox();
 		}
 		

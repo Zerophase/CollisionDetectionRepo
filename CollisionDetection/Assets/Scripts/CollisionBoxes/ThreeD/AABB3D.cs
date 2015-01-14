@@ -97,36 +97,36 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 					{
 						if(j == 0)
 						{
-							modify.x += m[j][i] * a.Center.x;
-							b.HalfWidth += Math.Abs(m[j][i]) * a.HalfWidth;
+							modify.x += m[i][j] * a.Center.x;
+							b.HalfWidth += Math.Abs(m[i][j]) * a.HalfWidth;
 						}
 						else if (j == 1)
 						{
-							modify.x += m[j][i]*a.center.y;
-							b.HalfWidth += Math.Abs(m[j][i]) * a.HalfHeight;
+							modify.x += m[i][j]*a.center.y;
+							b.HalfWidth += Math.Abs(m[i][j]) * a.HalfHeight;
 						}
 						else if (j == 2)
 						{
-							modify.x += m[j][i]*a.center.z;
-							b.HalfWidth += Math.Abs(m[j][i])*a.HalfDepth;
+							modify.x += m[i][j]*a.center.z;
+							b.HalfWidth += Math.Abs(m[i][j])*a.HalfDepth;
 						}
 					}
 					else if (i == 1)
 					{
 						if(j == 0)
 						{
-							modify.y += m[j][i] * a.Center.x;
-							b.HalfHeight += Math.Abs(m[j][i]) * a.HalfWidth;
+							modify.y += m[i][j] * a.Center.x;
+							b.HalfHeight += Math.Abs(m[i][j]) * a.HalfWidth;
 						}
 						else if(j == 1)
 						{
-							modify.y += m[j][i] * a.Center.y;
-							b.HalfHeight += Math.Abs(m[j][i]) * a.HalfHeight;
+							modify.y += m[i][j] * a.Center.y;
+							b.HalfHeight += Math.Abs(m[i][j]) * a.HalfHeight;
 						}
 						else if (j == 2)
 						{
-							modify.y += m[j][i]*a.Center.z;
-							b.HalfHeight += Math.Abs(m[j][i])*a.HalfDepth;
+							modify.y += m[i][j]*a.Center.z;
+							b.HalfHeight += Math.Abs(m[i][j])*a.HalfDepth;
 						}
 						
 					}
@@ -134,18 +134,18 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 					{
 						if (j == 0)
 						{
-							modify.z += m[j][i]*a.Center.x;
-							b.HalfDepth += Math.Abs(m[j][i])*a.HalfWidth;
+							modify.z += m[i][j]*a.Center.x;
+							b.HalfDepth += Math.Abs(m[i][j])*a.HalfWidth;
 						}
 						else if (j == 1)
 						{
-							modify.z += m[j][i]*a.Center.y;
-							b.HalfDepth += Math.Abs(m[j][i])*a.HalfHeight;
+							modify.z += m[i][j]*a.Center.y;
+							b.HalfDepth += Math.Abs(m[i][j])*a.HalfHeight;
 						}
 						else if (j == 2)
 						{
-							modify.z += m[j][i]*a.Center.z;
-							b.HalfDepth += Math.Abs(m[j][i])*a.HalfDepth;
+							modify.z += m[i][j]*a.Center.z;
+							b.HalfDepth += Math.Abs(m[i][j])*a.HalfDepth;
 						}
 					}
 				}
