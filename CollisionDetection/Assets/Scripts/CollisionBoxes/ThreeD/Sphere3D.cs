@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Schema;
+using Assets.Scripts.EqualityComparison.Float;
 using UnityEngine;
 
 namespace Assets.Scripts.CollisionBoxes.ThreeD
@@ -13,11 +14,22 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 
 		public Sphere3D(Vector3 center, float radius)
 		{
-			
+			this.center = center;
+			this.radius = radius;
 		}
 
 		public Sphere3D()
 		{
+		}
+
+		public override bool Equals(object obj)
+		{
+			var test = (Sphere3D) obj;
+			if (test.Center == Center &&
+			    FloatComparer.Compare(test.Radius, Radius))
+				return true;
+
+			return false;
 		}
 
 		public void MostSeperatedPointsOnAABB(out int min, out int max, Vector3[] points)

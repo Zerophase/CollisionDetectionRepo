@@ -152,5 +152,19 @@ namespace CollisionDetection.UnitTests.GeometryTests
 
 			Assert.AreEqual(expected, result);
 		}
+
+		[Test]
+		public void TriangleArea2D_TriangleHasExpectedArea_ReturnsFloat()
+		{
+			Vector3 pointInTriangle1 = new Vector3(0.0f, 0.0f, 0.0f);
+			Vector3 pontInTriangle2 = new Vector3(1.0f, 1.0f, 1.0f);
+			Vector3 pointInTriangle3 = new Vector3(0.0f, 1.0f, 0.0f);
+
+			float expected = 1.0f;
+			float actual = GeometryChecks.TriangleArea2D(pointInTriangle1.x, pointInTriangle1.y,
+				pontInTriangle2.x, pontInTriangle2.y, pointInTriangle3.x, pointInTriangle3.y);
+
+			Assert.AreEqual(expected, actual);
+		}
 	}
 }
