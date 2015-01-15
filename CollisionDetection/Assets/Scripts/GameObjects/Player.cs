@@ -59,6 +59,9 @@ namespace Assets.Scripts.GameObjects
 
 			sphere2D = new Sphere3D();
 			sphere2D.RitterSphere(squareCorners);
+			// below are more accurate for larger amounts of points
+			//sphere2D.EigenSphere(ref sphere2D, squareCorners);
+			//sphere2D.RitterEigenSphere(ref sphere2D, squareCorners, 8);
 		}
 
 		Vector2 moveRight = new Vector2(1.0f, 0.0f);
