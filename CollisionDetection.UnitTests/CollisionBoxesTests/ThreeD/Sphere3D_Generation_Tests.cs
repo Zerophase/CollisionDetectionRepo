@@ -142,5 +142,34 @@ namespace CollisionDetection.UnitTests.CollisionBoxesTests.ThreeD
 
 			Assert.AreEqual(expected, actual);
 		}
+
+		[Test]
+		public void RitterIterative_GenerateSphereThroughIteration_SizeSphereDown()
+		{
+			SphereGeneration sphereGenerator = new SphereGeneration();
+			System.Random random = Substitute.For<System.Random>();
+			random.Next(Arg.Any<int>(), Arg.Any<int>()).Returns(0);
+			sphereGenerator.Random = random;
+
+			Vector3[] points =
+			{
+				Vector3.zero,
+				new Vector3(2.0f, 2.0f, 2.0f),
+				new Vector3(1.0f, 1.5f, 0.0f),
+				new Vector3(-1.0f, -1.0f, -1.0f),
+ 				new Vector3(9.0f, 9.0f, 9.0f),
+ 				new Vector3(3.0f, 4.0f, 1.0f),
+ 				new Vector3(-2.0f, -0.0f, -1.0f),
+ 				new Vector3(-8.0f, -3.0f, -5.0f) 
+			};
+
+			Sphere3D expected = new Sphere3D(new Vector3(-0.4f, 2.4f, 1.3f), 9.361788f);
+			Sphere3D actual = new Sphere3D();
+			sphereGenerator.Sphere3D = actual;
+			
+			sphereGenerator.RitterIterative(points);
+
+			Assert.AreEqual(expected, actual);
+		}
 	}
 }

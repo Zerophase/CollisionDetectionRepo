@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.IntersectionTests;
 using Assets.Scripts.Maths.PointSearch;
 using Assets.Scripts.Maths.PointSearch.Interfaces;
 using UnityEngine;
@@ -10,7 +13,10 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD.BoundingGeneration
 		public IGeometrySearch GeometrySearch = new GeometrySearch();
 		public Sphere3D Sphere3D;
 
-		System.Random random = new System.Random();
+		private SphereIntersection sphereIntersection = new SphereIntersection();
+
+		public System.Random Random { get { return random; } set { random = value; } }
+		private System.Random random = new System.Random();
 
 		public void RitterSphere(Vector3[] point)
 		{
@@ -112,13 +118,106 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD.BoundingGeneration
 				for (int j = 0; j < points.Length; j++)
 				{
 					// swap points[i] with points[k], where k randomly from interval [i+1, numpts -1]
-					points[i] = points[random.Next(i + 1, points.Length + 1)];
+					if(i < numIterations - 1)
+						points[i] = points[random.Next(i + 1, points.Length - 1)];
 					SphereOfSphereAndPoint(points[i]);
 				}
 
 				if (s2.Radius < Sphere3D.Radius)
 					Sphere3D = s2;
 			}
+		}
+		
+		/// <summary>
+		/// Likely to cause stack overflow for inputs larger than a couple thousand.
+		/// don't know how to fix
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="numPoints"></param>
+		/// <param name="sos"></param>
+		/// <param name="numSos"></param>
+		/// <returns></returns>
+		public Sphere3D WelzlSphere(Vector3[] points,  int numPoints, Vector3[] sos,  int numSos = 0)
+		{
+			if (numPoints == 0)
+			{
+				switch (numSos)
+				{
+					case 0:
+						return new Sphere3D();
+					case 1:
+						return  new Sphere3D(sos[0]);
+					case 2:
+						return new Sphere3D(sos[0], sos[1]);
+					case 3:
+						return new Sphere3D(sos[0], sos[1], sos[2]);
+					case 4:
+						return new Sphere3D(sos[0], sos[1], sos[2], sos[3]);
+				}
+			}
+
+			int index = numPoints - 1;
+			// this cause the overflow
+			Sphere3D smallestSphere = WelzlSphere(points, numPoints - 1, sos, numSos);
+
+			if (sphereIntersection.InsideSphere(smallestSphere, points[index]))
+				return smallestSphere;
+
+			sos[numSos] = points[index];
+			return WelzlSphere(points, numPoints - 1, sos, numSos + 1);
+
+			#region More Efficent but currently broken. Works in c++ with pointers
+
+			//Sphere3D smallestSphere = new Sphere3D();
+			//switch (numSos)
+			//{
+			//	case 0:
+			//		smallestSphere = new Sphere3D();
+			//		break;
+			//	case 1:
+			//		smallestSphere = new Sphere3D(sos[0]);
+			//		break;
+			//	case 2:
+			//		smallestSphere = new Sphere3D(sos[0], sos[1]);
+			//		break;
+			//	case 3:
+			//		smallestSphere = new Sphere3D(sos[0], sos[1], sos[2]);
+			//		break;
+			//	case 4:
+			//		smallestSphere = new Sphere3D(sos[0], sos[1], sos[2], sos[3]);
+			//		return smallestSphere;
+			//}
+
+			//for (uint i = 0; i < numPoints; i++)
+			//{
+			//	float test = sphereIntersection.DistanceToSphereSquared(smallestSphere, points[i]);
+			//	if (test > 0)
+			//	{
+
+			//		for (uint j = i; j > 0; j--)
+			//		{
+			//			// pick point at random. Here just last point
+			//			Vector3 t = points[j];
+			//			// swaps point position
+			//			points[j] = points[j - 1];
+			//			points[j - 1] = t;
+			//		}
+
+			//		List<Vector3> newPoints = new List<Vector3>();
+			//		for (int j = 0; j < points.Length; j++)
+			//		{
+			//			if(j < points.Length - 1)
+			//				newPoints.Add(points[j + 1]);
+			//		}
+			//		sos[numSos] = points[i];
+			//		smallestSphere = WelzlSphere(points, i, sos, numSos + 1);
+			//	}
+			//}
+
+			//// recursively compute the smallest sphere of remaining points with new sos
+			//return smallestSphere;
+
+			#endregion
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Runtime.Remoting;
 using Assets.Scripts.CollisionBoxes.ThreeD;
 using Assets.Scripts.CollisionBoxes.ThreeD.BoundingGeneration;
 
@@ -31,7 +32,7 @@ namespace Assets.Scripts.GameObjects
 				"Half Width is: " + boundingBox.HalfWidth);
 	
 			GameObject.Find("GameController").SendMessage("AddCollisionObjects", this);
-			Vector3[] squareCorners = new Vector3[]
+			Vector3[] boxCorners = new Vector3[]
 			{
 				new Vector3(boundingBox.Center.x + boundingBox.HalfWidth,
 					boundingBox.Center.y + boundingBox.HalfHeight, 
@@ -59,12 +60,19 @@ namespace Assets.Scripts.GameObjects
 					boundingBox.Center.z - boundingBox.HalfDepth), 	// (-, +, -)
 			};
 
+			// .8661254
 			sphere3D = new Sphere3D();
 			sphereGenerator.Sphere3D = sphere3D;
-			sphereGenerator.RitterSphere(squareCorners);
+			Vector3[] sos = new Vector3[4];
+			// even tighter sphere
+			sphere3D = sphereGenerator.WelzlSphere(boxCorners, 8, sos);
+			// very tight boxes
+			//sphereGenerator.RitterIterative(boxCorners);
+			//sphereGenerator.RitterSphere(boxCorners);
 			// below are more accurate for larger amounts of points
-			//sphereGenerator.EigenSphere(squareCorners);
-			//sphereGenerator.RitterEigenSphere(squareCorners);
+			//sphereGenerator.EigenSphere(boxCorners);
+			//sphereGenerator.RitterEigenSphere(boxCorners);
+			Debug.Log("Center : " + sphere3D.Center + "Radius: " + sphere3D.Radius);
 		}
 
 		Vector2 moveRight = new Vector2(1.0f, 0.0f);
