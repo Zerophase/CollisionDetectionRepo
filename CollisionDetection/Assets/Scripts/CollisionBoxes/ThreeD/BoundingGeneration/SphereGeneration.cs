@@ -10,6 +10,8 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD.BoundingGeneration
 		public IGeometrySearch GeometrySearch = new GeometrySearch();
 		public Sphere3D Sphere3D;
 
+		System.Random random = new System.Random();
+
 		public void RitterSphere(Vector3[] point)
 		{
 			SphereFromDistantPoints(point);
@@ -93,6 +95,30 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD.BoundingGeneration
 			EigenSphere(points);
 			for (int i = 0; i < points.Length; i++)
 				SphereOfSphereAndPoint(points[i]);
+		}
+
+		public void RitterIterative(Vector3[] points)
+		{
+			const int numIterations = 8;
+			RitterSphere(points);
+
+			Sphere3D s2 = Sphere3D;
+			for (int i = 0; i < numIterations; i++)
+			{
+				// Shrink sphere somewhat to make it an underestimeate (not bound)
+				s2.Radius = s2.Radius*0.95f;
+
+				// make sphre bound data again
+				for (int j = 0; j < points.Length; j++)
+				{
+					// swap points[i] with points[k], where k randomly from interval [i+1, numpts -1]
+					points[i] = points[random.Next(i + 1, points.Length + 1)];
+					SphereOfSphereAndPoint(points[i]);
+				}
+
+				if (s2.Radius < Sphere3D.Radius)
+					Sphere3D = s2;
+			}
 		}
 	}
 }
