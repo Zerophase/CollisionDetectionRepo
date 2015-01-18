@@ -50,9 +50,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollisionBoxesTests\Math\Base\CommonMathProperties.cs" />
+    <Compile Include="CollisionBoxesTests\Math\GeometrySearchTests.cs" />
     <Compile Include="CollisionBoxesTests\Math\MathConversionTests.cs" />
     <Compile Include="CollisionBoxesTests\ThreeD\AABB3D_IntersectionTests.cs" />
     <Compile Include="CollisionBoxesTests\ThreeD\AABB3D_Tests.cs" />
+    <Compile Include="CollisionBoxesTests\ThreeD\Sphere3DIntersectionTests.cs" />
+    <Compile Include="CollisionBoxesTests\ThreeD\Sphere3D_Generation_Tests.cs" />
     <Compile Include="CollisionBoxesTests\ThreeD\Sphere3D_Tests.cs" />
     <Compile Include="GeometryTests\PlaneTests.cs" />
     <Compile Include="GeometryTests\PolygonIntersectionTests.cs" />

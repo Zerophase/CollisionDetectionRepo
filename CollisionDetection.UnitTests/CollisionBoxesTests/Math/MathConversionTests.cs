@@ -1,15 +1,14 @@
 ﻿using Assets.Scripts.EqualityComparison.Float;
 using Assets.Scripts.Maths;
+using CollisionDetection.UnitTests.CollisionBoxesTests.Math.Base;
 using NUnit.Framework;
 using UnityEngine;
 
 namespace CollisionDetection.UnitTests.CollisionBoxesTests.Math
 {
 	[TestFixture]
-	public class MathConversionTests
+	public class MathConversionTests : CommonMathProperties
 	{
-		private FloatComparerTolerance floatComparerTolerance =
-			new FloatComparerTolerance(0.01f);
 
 		[Test]
 		public void QuaternionTo3x3_NinetyDegreeRight_Return3x3Representation()

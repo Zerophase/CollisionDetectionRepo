@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CollisionBoxes\ThreeD\AABB3D.cs" />
+    <Compile Include="Assets\Scripts\CollisionBoxes\ThreeD\BoundingGeneration\SphereGeneration.cs" />
     <Compile Include="Assets\Scripts\CollisionBoxes\ThreeD\Sphere3D.cs" />
     <Compile Include="Assets\Scripts\CoordinateTests\GeometryChecks.cs" />
     <Compile Include="Assets\Scripts\EqualityComparision\Float\FloatComparer.cs" />
@@ -71,6 +72,8 @@
     <Compile Include="Assets\Scripts\IntersectionTests\AABBIntersection.cs" />
     <Compile Include="Assets\Scripts\IntersectionTests\SphereIntersection.cs" />
     <Compile Include="Assets\Scripts\Maths\MathConversion.cs" />
+    <Compile Include="Assets\Scripts\Maths\PointSearch\GeometrySearch.cs" />
+    <Compile Include="Assets\Scripts\Maths\PointSearch\Interfaces\IGeometrySearch.cs" />
     <Compile Include="Assets\Scripts\Policies\Interfaces\IVectorPolicy.cs" />
     <Compile Include="Assets\Scripts\Policies\Vector2Policy.cs" />
     <Compile Include="Assets\Zenject\Assert.cs" />
@@ -218,5 +221,6 @@
     <None Include="Assets\Zenject\Extras\SampleGame\Media\Imported\Shaders\AddSmooth_Layer.shader" />
     <None Include="Assets\Zenject\Extras\SampleGame\Media\Imported\Shaders\Particle Alpha Blend_IgnoreFog.shader" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>

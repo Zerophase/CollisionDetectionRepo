@@ -2,13 +2,15 @@
 using UnityEngine;
 using System.Collections;
 using Assets.Scripts.CollisionBoxes.ThreeD;
+using Assets.Scripts.CollisionBoxes.ThreeD.BoundingGeneration;
 
 namespace Assets.Scripts.GameObjects
 {
 	public class Player : MonoBehaviour, ICollider
 	{
 		private AABB3D boundingBox;
-		private Sphere3D sphere2D;
+		private Sphere3D sphere3D;
+		private SphereGeneration sphereGenerator = new SphereGeneration();
 
 		public AABB3D BoundingBox
 		{
@@ -27,7 +29,7 @@ namespace Assets.Scripts.GameObjects
 			Debug.Log("Center of AABB is: " + boundingBox.Center +
 				"Half Height is: " + boundingBox.HalfHeight +
 				"Half Width is: " + boundingBox.HalfWidth);
-
+	
 			GameObject.Find("GameController").SendMessage("AddCollisionObjects", this);
 			Vector3[] squareCorners = new Vector3[]
 			{
@@ -57,11 +59,12 @@ namespace Assets.Scripts.GameObjects
 					boundingBox.Center.z - boundingBox.HalfDepth), 	// (-, +, -)
 			};
 
-			sphere2D = new Sphere3D();
-			sphere2D.RitterSphere(squareCorners);
+			sphere3D = new Sphere3D();
+			sphereGenerator.Sphere3D = sphere3D;
+			sphereGenerator.RitterSphere(squareCorners);
 			// below are more accurate for larger amounts of points
-			//sphere2D.EigenSphere(ref sphere2D, squareCorners);
-			//sphere2D.RitterEigenSphere(ref sphere2D, squareCorners, 8);
+			//sphereGenerator.EigenSphere(squareCorners);
+			//sphereGenerator.RitterEigenSphere(squareCorners);
 		}
 
 		Vector2 moveRight = new Vector2(1.0f, 0.0f);
@@ -73,7 +76,7 @@ namespace Assets.Scripts.GameObjects
 			else if(Input.GetKey(KeyCode.LeftArrow))
 				UpdatePosition(-moveRight * 5f);
 			boundingBox.DrawBoundingBox();
-			sphere2D.DrawCenterLines();
+			sphere3D.DrawCenterLines();
 		}
 
 

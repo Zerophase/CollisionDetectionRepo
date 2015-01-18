@@ -7,8 +7,8 @@ namespace Assets.Scripts.IntersectionTests
 	{
 		public bool TestSphereSphere(Sphere3D a, Sphere3D b)
 		{
-			Vector2 distance = a.Center - b.Center;
-			float distSquared = Vector2.Dot(distance, distance);
+			Vector3 distance = a.Center - b.Center;
+			float distSquared = Vector3.Dot(distance, distance);
 			float radiusSum = a.Radius + b.Radius;
 			return distSquared <= radiusSum*radiusSum;
 		}
