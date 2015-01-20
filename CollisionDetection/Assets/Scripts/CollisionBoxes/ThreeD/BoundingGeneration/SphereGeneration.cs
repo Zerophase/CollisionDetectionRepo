@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.IntersectionTests;
+using Assets.Scripts.Maths;
 using Assets.Scripts.Maths.PointSearch;
 using Assets.Scripts.Maths.PointSearch.Interfaces;
 using UnityEngine;
@@ -144,15 +145,15 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD.BoundingGeneration
 				switch (numSos)
 				{
 					case 0:
-						return new Sphere3D();
+						return ZeroPoints();
 					case 1:
-						return  new Sphere3D(sos[0]);
+						return OnePoints(sos[0]);
 					case 2:
-						return new Sphere3D(sos[0], sos[1]);
+						return TwoPoints(sos[0], sos[1]);
 					case 3:
-						return new Sphere3D(sos[0], sos[1], sos[2]);
+						return ThreePoints(sos[0], sos[1], sos[2]);
 					case 4:
-						return new Sphere3D(sos[0], sos[1], sos[2], sos[3]);
+						return FourPoints(sos[0], sos[1], sos[2], sos[3]);
 				}
 			}
 
@@ -218,6 +219,76 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD.BoundingGeneration
 			//return smallestSphere;
 
 			#endregion
+		}
+
+		private float radiusEpsilon = 1e-4f;
+
+		public Sphere3D ZeroPoints()
+		{
+			float radius = -1.0f;
+			Vector3 center = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+			return new Sphere3D(center, radius);
+		}
+
+		public Sphere3D OnePoints(Vector3 center)
+		{
+			float radius = 0.0f + radiusEpsilon;
+			return new Sphere3D(center, radius);
+		}
+
+		public Sphere3D TwoPoints(Vector3 vectorOne, Vector3 vector2)
+		{
+			Vector3 a = vector2 - vectorOne;
+			Vector3 tempRad = 0.5f * a;
+
+			float radius = (float)Math.Sqrt(tempRad.Multiply(tempRad)) + radiusEpsilon;
+			Vector3 center = vectorOne + tempRad;
+
+			return new Sphere3D(center, radius);
+		}
+
+		public Sphere3D ThreePoints(Vector3 vectorOne, Vector3 vector2, Vector3 vector3)
+		{
+			Vector3 a = vector2 - vectorOne;
+			Vector3 b = vector3 - vectorOne;
+
+			float denominator = 2.0f * (Vector3.Cross(a, b).Multiply(Vector3.Cross(a, b)));
+
+			Vector3 tempRadius = (b.sqrMagnitude * (Vector3.Cross(Vector3.Cross(a, b), a)) +
+								  (a.sqrMagnitude) * (Vector3.Cross(b, Vector3.Cross(a, b)))) / denominator;
+
+			float radius = tempRadius.magnitude + radiusEpsilon;
+			Vector3 center = vectorOne + tempRadius;
+
+			return new Sphere3D(center, radius);
+		}
+
+		public Sphere3D FourPoints(Vector3 vectorOne, Vector3 vector2, Vector3 vector3, Vector3 vector4)
+		{
+			Vector3 a = vector2 - vectorOne;
+			Vector3 b = vector3 - vectorOne;
+			Vector3 c = vector4 - vectorOne;
+
+			float denominator = 2.0f * determinate(a.x, a.y, a.z,
+				b.x, b.y, b.z,
+				c.x, c.y, c.z);
+
+			Vector3 tempRad = ((c.sqrMagnitude) * Vector3.Cross(a, b) +
+								(b.sqrMagnitude) * Vector3.Cross(c, a) +
+								(a.sqrMagnitude) * Vector3.Cross(b, c)) / denominator;
+			float radius = tempRad.magnitude + radiusEpsilon;
+			Vector3 center = vectorOne + tempRad;
+
+			return new Sphere3D(center, radius);
+		}
+
+		private float determinate(float m11, float m12, float m13,
+			float m21, float m22, float m23,
+			float m31, float m32, float m33)
+		{
+			return m11 * (m22 * m33 - m32 * m23) -
+				   m21 * (m12 * m33 - m32 * m13) +
+				   m31 * (m12 * m23 - m22 * m13);
 		}
 	}
 }

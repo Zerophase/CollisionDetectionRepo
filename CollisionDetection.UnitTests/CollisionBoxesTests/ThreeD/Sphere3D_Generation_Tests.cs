@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using Assets.Scripts.CollisionBoxes.ThreeD;
 using Assets.Scripts.CollisionBoxes.ThreeD.BoundingGeneration;
@@ -168,6 +169,29 @@ namespace CollisionDetection.UnitTests.CollisionBoxesTests.ThreeD
 			sphereGenerator.Sphere3D = actual;
 			
 			sphereGenerator.RitterIterative(points);
+
+			Assert.AreEqual(expected, actual);
+		}
+
+		[Test]
+		public void WelzlSphere_RecursiveGenerationOfSphere_FindMinimumSizedSphere()
+		{
+			SphereGeneration sphereGenerator = new SphereGeneration();
+			Vector3[] points =
+			{
+				Vector3.zero,
+				new Vector3(2.0f, 2.0f, 2.0f),
+				new Vector3(1.0f, 1.5f, 0.0f),
+				new Vector3(-1.0f, -1.0f, -1.0f),
+ 				new Vector3(9.0f, 9.0f, 9.0f),
+ 				new Vector3(3.0f, 4.0f, 1.0f),
+ 				new Vector3(-2.0f, -0.0f, -1.0f),
+ 				new Vector3(-8.0f, -3.0f, -5.0f) 
+			};
+			Vector3[] sos = new Vector3[4];
+
+			Sphere3D expected = new Sphere3D(new Vector3(0.5f, 3.0f, 2.0f), 12.5400362f);
+			Sphere3D actual = sphereGenerator.WelzlSphere(points, points.Length, sos);
 
 			Assert.AreEqual(expected, actual);
 		}
