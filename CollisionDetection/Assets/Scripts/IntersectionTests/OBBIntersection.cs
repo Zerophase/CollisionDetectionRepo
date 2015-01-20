@@ -24,6 +24,8 @@ namespace Assets.Scripts.IntersectionTests
  				new float[3], 
 			};
 
+			// TODO Calculate rotation and absRotation
+			// as the first six tests are being run to speed this test up.
 			// Compute rotation matrix expressing b in a's coordinate frame
 			for (int i = 0; i < 3; i++)
 			{
@@ -54,7 +56,7 @@ namespace Assets.Scripts.IntersectionTests
 			// Test axes L = A0, L= A1, L = A2
 			for (int i = 0; i < 3; i++)
 			{
-				rotationA = a.HalfWidths[0];
+				rotationA = a.HalfWidths[i];
 				rotationB = b.HalfWidths[0]*absRotation[i][0] +
 				            b.HalfWidths[1]*absRotation[i][1] +
 				            b.HalfWidths[2]*absRotation[i][2];
@@ -112,7 +114,7 @@ namespace Assets.Scripts.IntersectionTests
 			            a.HalfWidths[2]*absRotation[0][0];
 			rotationB = b.HalfWidths[1]*absRotation[1][2] +
 			            b.HalfWidths[2]*absRotation[1][1];
-			if (Math.Abs(translation[0] + rotation[2][0] -
+			if (Math.Abs(translation[0]*rotation[2][0] -
 			             translation[2]*rotation[0][0]) > rotationA + rotationB)
 				return false;
 

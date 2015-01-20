@@ -57,6 +57,7 @@
     <Compile Include="CollisionBoxesTests\ThreeD\AABB3D_IntersectionTests.cs" />
     <Compile Include="CollisionBoxesTests\ThreeD\AABB3D_Tests.cs" />
     <Compile Include="CollisionBoxesTests\ThreeD\OBB3D_Tests.cs" />
+    <Compile Include="CollisionBoxesTests\ThreeD\OBB_Intersection_Tests.cs" />
     <Compile Include="CollisionBoxesTests\ThreeD\Sphere3DIntersectionTests.cs" />
     <Compile Include="CollisionBoxesTests\ThreeD\Sphere3D_Generation_Tests.cs" />
     <Compile Include="CollisionBoxesTests\ThreeD\Sphere3D_Tests.cs" />
