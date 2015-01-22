@@ -4,14 +4,18 @@ using System.Collections;
 using System.Runtime.Remoting;
 using Assets.Scripts.CollisionBoxes.ThreeD;
 using Assets.Scripts.CollisionBoxes.ThreeD.BoundingGeneration;
+using Assets.Scripts.Maths;
 
 namespace Assets.Scripts.GameObjects
 {
 	public class Player : MonoBehaviour, ICollider
 	{
 		private AABB3D boundingBox;
+
 		private Sphere3D sphere3D;
 		private SphereGeneration sphereGenerator = new SphereGeneration();
+
+		private OBB3D orientedBoundingBox;
 
 		public AABB3D BoundingBox
 		{
@@ -73,6 +77,20 @@ namespace Assets.Scripts.GameObjects
 			//sphereGenerator.EigenSphere(boxCorners);
 			//sphereGenerator.RitterEigenSphere(boxCorners);
 			Debug.Log("Center : " + sphere3D.Center + "Radius: " + sphere3D.Radius);
+
+			float[][] rm = transform.rotation.QuaternionTo3x3();
+			Vector3[] rotationVector3 =
+			{
+				new Vector3(rm[0][0], rm[0][1], rm[0][2]),
+				new Vector3(rm[1][0], rm[1][1], rm[1][2]),
+				new Vector3(rm[2][0], rm[2][1], rm[2][2]), 
+			};
+
+			Vector3 widths = new Vector3(boxCollider.size.x * transform.lossyScale.x,
+				boxCollider.size.y * transform.lossyScale.y,
+				boxCollider.size.z * transform.lossyScale.z);
+			orientedBoundingBox = new OBB3D(transform.position, rotationVector3,
+				widths);
 		}
 
 		Vector2 moveRight = new Vector2(1.0f, 0.0f);
@@ -85,6 +103,17 @@ namespace Assets.Scripts.GameObjects
 				UpdatePosition(-moveRight * 5f);
 			boundingBox.DrawBoundingBox();
 			sphere3D.DrawCenterLines();
+
+
+			float[][] rm = transform.rotation.QuaternionTo3x3();
+			Vector3[] rotationVector3 =
+			{
+				new Vector3(rm[0][0], rm[0][1], rm[0][2]),
+				new Vector3(rm[1][0], rm[1][1], rm[1][2]),
+				new Vector3(rm[2][0], rm[2][1], rm[2][2]), 
+			};
+			orientedBoundingBox.UpdateRotation(rotationVector3);
+			orientedBoundingBox.DrawBoundingBox();
 		}
 
 

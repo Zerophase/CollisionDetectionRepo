@@ -48,36 +48,36 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 		public void DrawBoundingBox()
 		{
 			// back face
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth , center.y + HalfHeight, center.z + HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z + HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z + HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(Center.x - HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z + HalfDepth),
-				Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth , center.y + HalfHeight, center.z + HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z + HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z + HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(Center.x - HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z + HalfDepth),
+			//	Color.magenta);
 
-			// front face
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth),
-				Color.magenta);
+			//// front face
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
 
-			// side face
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z + HalfDepth), new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z - HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
-				Color.magenta);
+			//// side face
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z + HalfDepth), new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
 
-			// Other side face
-			Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
-				Color.magenta);
+			//// Other side face
+			//Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
 		}
 
 		public void UpdateAABB(AABB3D a, float[][] m, Vector3 t, ref AABB3D b)

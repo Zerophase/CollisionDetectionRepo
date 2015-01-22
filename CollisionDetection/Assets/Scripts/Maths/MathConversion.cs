@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Maths
 {
-	public static  class MathConversion
+	public static class MathConversion
 	{
 		private static float[][] identityMatrix =
 		{
