@@ -108,48 +108,88 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 
 		public void DrawBoundingBox()
 		{
-			var xOrientation = orientationMatrix[0].x + orientationMatrix[1].y + orientationMatrix[2].z;
-			var yOrientation = orientationMatrix[0].z + orientationMatrix[1].x + orientationMatrix[2].y;
-			var zOrientation = orientationMatrix[0].y + orientationMatrix[1].z + orientationMatrix[2].x;
-			Debug.DrawLine(
-				new Vector3((center.x * xOrientation) - HalfWidths.x, (center.y * yOrientation) + HalfWidths.y, 
-					(center.z *zOrientation) + HalfWidths.z),
-					new Vector3((center.x * xOrientation) + HalfWidths.x, (center.y * yOrientation) + HalfWidths.y,
-						(center.z * zOrientation) + HalfWidths.z), Color.magenta);
-			Debug.DrawLine(new Vector3((center.x * xOrientation) - HalfWidths.x, (center.y * yOrientation) - HalfWidths.y, 
-				(center.z * zOrientation) + HalfWidths.z), 
-				new Vector3((center.x * xOrientation) + HalfWidths.x, (center.y * yOrientation) - HalfWidths.y, 
-					(center.z * zOrientation) + HalfWidths.z), Color.magenta);
-			Debug.DrawLine(new Vector3((center.x * xOrientation) + HalfWidths.x, (center.y * yOrientation) - HalfWidths.y, 
-				(center.z * zOrientation) + HalfWidths.z), 
-				new Vector3((center.x * xOrientation) + HalfWidths.x, (center.y * yOrientation) + HalfWidths.y, 
-					(center.z * zOrientation) + HalfWidths.z), Color.magenta);
-			Debug.DrawLine(new Vector3((Center.x * xOrientation) - HalfWidths.x, (center.y * yOrientation) - HalfWidths.y, 
-				(center.z * zOrientation) + HalfWidths.z), 
-				new Vector3((center.x * xOrientation) - HalfWidths.x, (center.y * yOrientation) + HalfWidths.y, 
-					(center.z * zOrientation) + HalfWidths.z), Color.magenta);
+			//Vector3 topLeftBottom = new Vector3();
+			var xtopLeftBack = orientationMatrix[0].x * (center.x + halfWidths.x) + orientationMatrix[1].x * (center.y - halfWidths.y) 
+				+ orientationMatrix[2].x * (center.z - halfWidths.z);
+			var xtopRightBack = orientationMatrix[0].x * (center.x - halfWidths.x) + orientationMatrix[1].x * (center.y - halfWidths.y)
+				+ orientationMatrix[2].x * (center.z - halfWidths.z);
+			var xbottomLeftBack = orientationMatrix[0].x * (center.x + halfWidths.x) + orientationMatrix[1].x * (center.y + halfWidths.y)
+				+ orientationMatrix[2].x * (center.z - halfWidths.z);
+			var xBottomRightBack = orientationMatrix[0].x * (center.x - halfWidths.x) + orientationMatrix[1].x * (center.y + halfWidths.y)
+				+ orientationMatrix[2].x * (center.z - halfWidths.z);
+
+			var xtopRightFront = orientationMatrix[0].x * (center.x - halfWidths.x) + orientationMatrix[1].x * (center.y - halfWidths.y)
+				+ orientationMatrix[2].x * (center.z + halfWidths.z);
+			var xtopLeftFront = orientationMatrix[0].x * (center.x + halfWidths.x) + orientationMatrix[1].x * (center.y - halfWidths.y)
+				+ orientationMatrix[2].x * (center.z + halfWidths.z);
+			var xBottomRightFront = orientationMatrix[0].x * (center.x - halfWidths.x) + orientationMatrix[1].x * (center.y + halfWidths.y)
+				+ orientationMatrix[2].x * (center.z + halfWidths.z);
+			var xBottomLeftFront = orientationMatrix[0].x * (center.x + halfWidths.x) + orientationMatrix[1].x * (center.y + halfWidths.y)
+				+ orientationMatrix[2].x * (center.z + halfWidths.z);
+
+			var yTopLeftBack = orientationMatrix[0].y * (center.x - HalfWidths.x) + orientationMatrix[1].y * (center.y + HalfWidths.y) +
+				orientationMatrix[2].y * (center.z - HalfWidths.z);
+			var yTopRightBack = orientationMatrix[0].y * (center.x + HalfWidths.x) + orientationMatrix[1].y * (center.y +  HalfWidths.y) + 
+				orientationMatrix[2].y * (center.z - HalfWidths.z);
+			var yBottomLeftBack = orientationMatrix[0].y * (center.x - HalfWidths.x) + orientationMatrix[1].y * (center.y - HalfWidths.y) +
+				orientationMatrix[2].y * (center.z - HalfWidths.z);
+			var yBottomRightBack = orientationMatrix[0].y * (center.x + HalfWidths.x) + orientationMatrix[1].y * (center.y - HalfWidths.y) +
+				orientationMatrix[2].y * (center.z - HalfWidths.z);
+			
+			var yTopLeftFront = orientationMatrix[0].y * (center.x - HalfWidths.x) + orientationMatrix[1].y * (center.y + HalfWidths.y) +
+				orientationMatrix[2].y * (center.z + HalfWidths.z);
+			var yTopRightFront = orientationMatrix[0].y * (center.x + HalfWidths.x) + orientationMatrix[1].y * (center.y + HalfWidths.y) +
+				orientationMatrix[2].y * (center.z + HalfWidths.z);
+			var yBottomLeftFront = orientationMatrix[0].y * (center.x - HalfWidths.x) + orientationMatrix[1].y * (center.y - HalfWidths.y) +
+				orientationMatrix[2].y * (center.z + HalfWidths.z);
+			var yBottomRightFront = orientationMatrix[0].y * (center.x + HalfWidths.x) + orientationMatrix[1].y * (center.y - HalfWidths.y) +
+				orientationMatrix[2].y * (center.z + HalfWidths.z);
+
+			var zTopRightBack = orientationMatrix[0].z * (center.x + HalfWidths.x) + orientationMatrix[1].z * (center.y - HalfWidths.y) + 
+				orientationMatrix[2].z * (center.z + HalfWidths.z);
+			var zTopLeftBack = orientationMatrix[0].z * (center.x - HalfWidths.x) + orientationMatrix[1].z * (center.y - HalfWidths.y) +
+				orientationMatrix[2].z * (center.z + HalfWidths.z);
+			var zBottomLeftBack = orientationMatrix[0].z * (center.x - HalfWidths.x) + orientationMatrix[1].z * (center.y + HalfWidths.y) +
+				orientationMatrix[2].z * (center.z + HalfWidths.z);
+			var zBottomRightBack = orientationMatrix[0].z * (center.x + HalfWidths.x) + orientationMatrix[1].z * (center.y + HalfWidths.y) +
+				orientationMatrix[2].z * (center.z + HalfWidths.z);
+
+			var zTopLeftFront = orientationMatrix[0].z * (center.x - HalfWidths.x) + orientationMatrix[1].z * (center.y - HalfWidths.y) +
+				orientationMatrix[2].z * (center.z - HalfWidths.z);
+			var zTopRightFront = orientationMatrix[0].z * (center.x + HalfWidths.x) + orientationMatrix[1].z * (center.y - HalfWidths.y) +
+				orientationMatrix[2].z * (center.z - HalfWidths.z);
+			var zBottomLeftFront = orientationMatrix[0].z * (center.x - HalfWidths.x) + orientationMatrix[1].z * (center.y + HalfWidths.y) +
+				orientationMatrix[2].z * (center.z - HalfWidths.z);
+			var zBottomRightFront = orientationMatrix[0].z * (center.x + HalfWidths.x) + orientationMatrix[1].z * (center.y + HalfWidths.y) +
+				orientationMatrix[2].z * (center.z - HalfWidths.z);
+
+			Vector3 topLeftBack = new Vector3(xtopLeftBack, yTopLeftBack, zTopLeftBack);
+			Vector3 topRightBack = new Vector3(xtopRightBack, yTopRightBack, zTopRightBack);
+			Vector3 bottomLeftBack = new Vector3(xbottomLeftBack, yBottomLeftBack, zBottomLeftBack);
+			Vector3 bottomRightBack = new Vector3(xBottomRightBack, yBottomRightBack, zBottomRightBack);
+			Vector3 topLeftFront = new Vector3(xtopLeftFront, yTopLeftFront, zTopLeftFront);
+			Vector3 topRightFront = new Vector3(xtopRightFront, yTopRightFront, zTopRightFront);
+			Vector3 bottomLeftFront = new Vector3(xBottomLeftFront, yBottomLeftFront, zBottomLeftFront);
+			Vector3 bottomRightFront = new Vector3(xBottomRightFront, yBottomRightFront, zBottomRightFront);
+
+			// back face
+			Debug.DrawLine(topLeftBack, topRightBack, Color.magenta);
+			Debug.DrawLine(bottomLeftBack, bottomRightBack, Color.magenta);
+			Debug.DrawLine(topLeftBack, bottomLeftBack, Color.magenta);
+			Debug.DrawLine(topRightBack, bottomRightBack, Color.magenta);
 
 			//// front face
-			//Debug.DrawLine(new Vector3(center.x - HalfWidths.x, center.y + HalfWidths.y, center.z - HalfWidths.z), new Vector3(center.x + HalfWidths.x, center.y + HalfWidths.y, center.z - HalfWidths.z),
-			//	Color.magenta);
-			//Debug.DrawLine(new Vector3(center.x - HalfWidths.x, center.y - HalfWidths.y, center.z - HalfWidths.z), new Vector3(center.x + HalfWidths.x, center.y - HalfWidths.y, center.z - HalfWidths.z),
-			//	Color.magenta);
+			Debug.DrawLine(topLeftFront, topRightFront, Color.magenta);
+			Debug.DrawLine(bottomLeftFront, bottomRightFront, Color.magenta);
+			Debug.DrawLine(topLeftFront, bottomLeftFront, Color.magenta);
+			Debug.DrawLine(topRightFront, bottomRightFront, Color.magenta);
+			//// left side face
+			Debug.DrawLine(topLeftFront, topLeftBack, Color.magenta);
+			Debug.DrawLine(bottomLeftFront, bottomLeftBack, Color.magenta);
 
-			//// side face
-			//Debug.DrawLine(new Vector3(center.x - HalfWidths.x, center.y + HalfWidths.y, center.z + HalfWidths.z), new Vector3(center.x - HalfWidths.x, center.y + HalfWidths.y, center.z - HalfWidths.z),
-			//	Color.magenta);
-			//Debug.DrawLine(new Vector3(center.x - HalfWidths.x, center.y - HalfWidths.y, center.z + HalfWidths.z), new Vector3(center.x - HalfWidths.x, center.y - HalfWidths.y, center.z - HalfWidths.z),
-			//	Color.magenta);
-			//Debug.DrawLine(new Vector3(center.x - HalfWidths.x, center.y - HalfWidths.y, center.z - HalfWidths.z), new Vector3(center.x - HalfWidths.x, center.y + HalfWidths.y, center.z - HalfWidths.z),
-			//	Color.magenta);
-
-			//// Other side face
-			//Debug.DrawLine(new Vector3(center.x + HalfWidths.x, center.y + HalfWidths.y, center.z + HalfWidths.z), new Vector3(center.x + HalfWidths.x, center.y + HalfWidths.y, center.z - HalfWidths.z),
-			//	Color.magenta);
-			//Debug.DrawLine(new Vector3(center.x + HalfWidths.x, center.y - HalfWidths.y, center.z + HalfWidths.z), new Vector3(center.x + HalfWidths.x, center.y - HalfWidths.y, center.z - HalfWidths.z),
-			//	Color.magenta);
-			//Debug.DrawLine(new Vector3(center.x + HalfWidths.x, center.y - HalfWidths.y, center.z - HalfWidths.z), new Vector3(center.x + HalfWidths.x, center.y + HalfWidths.y, center.z - HalfWidths.z),
-			//	Color.magenta);
+			//// right side face
+			Debug.DrawLine(topRightFront, topRightBack, Color.magenta);
+			Debug.DrawLine(bottomRightFront, bottomRightBack, Color.magenta);
 		}
 	}
 }
