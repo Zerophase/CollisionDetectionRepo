@@ -12,7 +12,7 @@ namespace Assets.Scripts.GameObjects
 	{
 		AABB3D BoundingBox { get; }
 
-		void UpdatePosition(Vector2 position);
+		void UpdatePosition(Vector3 position);
 	}
 
 
@@ -33,6 +33,12 @@ namespace Assets.Scripts.GameObjects
 				new float[4]
 			};
 
+		private OBB3D orientedBoundingBox;
+		public OBB3D OrientedBoundingBox
+		{
+			get { return orientedBoundingBox; }
+			set { orientedBoundingBox = value; }
+		}
 		// Use this for initialization
 		void Start()
 		{
@@ -46,6 +52,20 @@ namespace Assets.Scripts.GameObjects
 				boxCollider.size.x * transform.lossyScale.x,
 				boxCollider.size.y * transform.lossyScale.y,
 				boxCollider.size.z * transform.lossyScale.z);
+
+			float[][] rm = transform.localRotation.QuaternionTo3x3();
+			Vector3[] rotationVector3 =
+			{
+				new Vector3(rm[0][0], rm[0][1], rm[0][2]),
+				new Vector3(rm[1][0], rm[1][1], rm[1][2]),
+				new Vector3(rm[2][0], rm[2][1], rm[2][2]), 
+			};
+
+			Vector3 widths = new Vector3(boxCollider.size.x * transform.lossyScale.x,
+				boxCollider.size.y * transform.lossyScale.y,
+				boxCollider.size.z * transform.lossyScale.z);
+			orientedBoundingBox = new OBB3D(transform.position, rotationVector3,
+				widths);
 
 			GameObject.Find("GameController").SendMessage("AddCollisionObjects", this);
 		}
@@ -62,11 +82,21 @@ namespace Assets.Scripts.GameObjects
 			//	}
 			//}
 
-			boundingBox.UpdateAABB(rotationBox, transform.rotation.QuaternionTo3x3(), transform.position, ref boundingBox);
+			//float[][] rm = transform.rotation.QuaternionTo3x3();
+			//Vector3[] rotationVector3 =
+			//{
+			//	new Vector3(rm[0][0], rm[0][1], rm[0][2]),
+			//	new Vector3(rm[1][0], rm[1][1], rm[1][2]),
+			//	new Vector3(rm[2][0], rm[2][1], rm[2][2]), 
+			//};
+			//orientedBoundingBox.UpdateRotation(rotationVector3);
+			orientedBoundingBox.DrawBoundingBox();
+
+			boundingBox.UpdateAABB(rotationBox, transform.localRotation.QuaternionTo3x3(), transform.position, ref boundingBox);
 			boundingBox.DrawBoundingBox();
 		}
 		
-		public void UpdatePosition(Vector2 position)
+		public void UpdatePosition(Vector3 position)
 		{
 			throw new System.NotImplementedException();
 		}

@@ -11,13 +11,14 @@ namespace Assets.Scripts.GameObjects
 		private Ground ground;
 
 		private AABBIntersection intersection = new AABBIntersection();
+		private OBBIntersection obbIntersection = new OBBIntersection();
 
-		private Vector2 gravity = new Vector2(0.0f, -1.0f);
+		private Vector3 gravity = new Vector3(0.0f, -1.0f);
 
 		// Update is called once per frame
 		void Update () 
 		{
-			if (intersection.Intersect(player.BoundingBox, ground.BoundingBox))
+			if (obbIntersection.TestOBBOBB(player.OrientedBoundingBox, ground.OrientedBoundingBox))
 			{
 				gravity = new Vector2(0.0f, 0.0f);
 			}

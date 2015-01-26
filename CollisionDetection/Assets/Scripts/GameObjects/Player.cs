@@ -17,6 +17,12 @@ namespace Assets.Scripts.GameObjects
 
 		private OBB3D orientedBoundingBox;
 
+		public OBB3D OrientedBoundingBox
+		{
+			get { return orientedBoundingBox; }
+			set { orientedBoundingBox = value; }
+		}
+
 		public AABB3D BoundingBox
 		{
 			get { return boundingBox; }
@@ -78,7 +84,7 @@ namespace Assets.Scripts.GameObjects
 			//sphereGenerator.RitterEigenSphere(boxCorners);
 			Debug.Log("Center : " + sphere3D.Center + "Radius: " + sphere3D.Radius);
 
-			float[][] rm = transform.rotation.QuaternionTo3x3();
+			float[][] rm = transform.localRotation.QuaternionTo3x3();
 			Vector3[] rotationVector3 =
 			{
 				new Vector3(rm[0][0], rm[0][1], rm[0][2]),
@@ -101,11 +107,14 @@ namespace Assets.Scripts.GameObjects
 				UpdatePosition(moveRight * 5f);
 			else if(Input.GetKey(KeyCode.LeftArrow))
 				UpdatePosition(-moveRight * 5f);
+
+			if(Input.GetKeyDown(KeyCode.UpArrow))
+				UpdatePosition(new Vector2(0.0f, 1.0f) * 5f);
 			boundingBox.DrawBoundingBox();
 			sphere3D.DrawCenterLines();
 
 
-			float[][] rm = transform.rotation.QuaternionTo3x3();
+			float[][] rm = transform.localRotation.QuaternionTo3x3();
 			Vector3[] rotationVector3 =
 			{
 				new Vector3(rm[0][0], rm[0][1], rm[0][2]),
@@ -117,11 +126,12 @@ namespace Assets.Scripts.GameObjects
 		}
 
 
-		public void UpdatePosition(Vector2 position)
+		public void UpdatePosition(Vector3 position)
 		{
-			//boundingBox.Center += position * Time.deltaTime;
-			//sphere2D.Center += position *Time.deltaTime;
-			//transform.Translate(position * Time.deltaTime);
+			boundingBox.Center += position * Time.deltaTime;
+			sphere3D.Center += position * Time.deltaTime;
+			orientedBoundingBox.Center += position * Time.deltaTime;
+			transform.Translate(position * Time.deltaTime, Space.World);
 		}
 	}
 }
