@@ -64,6 +64,9 @@ namespace Assets.Scripts.GameObjects
 			Vector3 widths = new Vector3(boxCollider.size.x * transform.lossyScale.x,
 				boxCollider.size.y * transform.lossyScale.y,
 				boxCollider.size.z * transform.lossyScale.z);
+			Debug.Log("Ground Center: " + transform.position);
+			Debug.Log("Ground Widths: " + widths);
+
 			orientedBoundingBox = new OBB3D(transform.position, rotationVector3,
 				widths);
 

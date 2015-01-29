@@ -36,7 +36,7 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 			
 			if(orientationMatrix.Length != 3)
 				throw new ArgumentException("OBB3D member variable orientationMatrix " +
-				                            "should be Vector3[3]");
+				                            "requires a Vector3[3]");
 			this.orientationMatrix = orientationMatrix;
 			this.halfWidths = widths/2.0f;
 		}
