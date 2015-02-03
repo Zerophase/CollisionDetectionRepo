@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq.Expressions;
 using Assets.Scripts.CollisionBoxes.ThreeD;
+using Assets.Scripts.CollisionBoxes.ThreeD.BoundingGeneration;
 using Assets.Scripts.Maths;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
@@ -11,7 +12,8 @@ namespace Assets.Scripts.GameObjects
 	public interface ICollider
 	{
 		AABB3D BoundingBox { get; }
-
+		Sphere3D Sphere3D { get; }
+		Sphere3D[] Sphere3Ds { get; }
 		void UpdatePosition(Vector3 position);
 	}
 
@@ -22,6 +24,17 @@ namespace Assets.Scripts.GameObjects
 		private AABB3D rotationBox;
 
 		public AABB3D BoundingBox { get { return boundingBox; }}
+
+		private Sphere3D sphere3D;
+		private Sphere3D[] sphere3DArray;
+		public Sphere3D Sphere3D
+		{
+			get { return sphere3D; }
+		}
+
+		public Sphere3D[] Sphere3Ds { get {return sphere3DArray;} }
+
+		private SphereGeneration sphereGenerator = new SphereGeneration();
 
 		private Matrix4x4 matrix4X4;
 
@@ -70,6 +83,89 @@ namespace Assets.Scripts.GameObjects
 			orientedBoundingBox = new OBB3D(transform.position, rotationVector3,
 				widths);
 
+			sphere3DArray = new Sphere3D[(int)(boundingBox.HalfWidth * 2) - 1];
+			for (int i = 0; i < sphere3DArray.Length; i++)
+			{
+				sphere3DArray[i] = new Sphere3D();
+			}
+
+			Vector3[][] boxCornerCorners = new Vector3[6][];
+			for (int i = 0; i < sphere3DArray.Length; i++)
+			{
+				float halfWidth = boundingBox.HalfWidth/boundingBox.HalfWidth;
+				Vector3 center = new Vector3((boundingBox.Center.x - boundingBox.HalfWidth)
+					+ (halfWidth * (i + 1)),
+					boundingBox.Center.y, boundingBox.Center.z);
+				boxCornerCorners[i] = new Vector3[]
+				{
+					new Vector3(center.x + halfWidth,
+						center.y + boundingBox.HalfHeight,
+						center.z + boundingBox.HalfDepth), // (+,+, +)
+					new Vector3(center.x + halfWidth,
+						center.y - boundingBox.HalfHeight,
+						center.z + boundingBox.HalfDepth), // (+, -, +)
+					new Vector3(center.x - halfWidth,
+						center.y + boundingBox.HalfHeight,
+						center.z + boundingBox.HalfDepth), // (-, +, +)
+					new Vector3(center.x - halfWidth,
+						center.y - boundingBox.HalfHeight,
+						center.z + boundingBox.HalfDepth), // (-,-, +)
+					new Vector3(center.x - halfWidth,
+						center.y - boundingBox.HalfHeight,
+						center.z - boundingBox.HalfDepth), // (-,-,-)
+					new Vector3(center.x + halfWidth,
+						center.y - boundingBox.HalfHeight,
+						center.z - boundingBox.HalfDepth), // (+,-,-)
+					new Vector3(center.x - halfWidth,
+						center.y + boundingBox.HalfHeight,
+						center.z + boundingBox.HalfDepth), // (-, +, +)
+					new Vector3(center.x - halfWidth,
+						center.y + boundingBox.HalfHeight,
+						center.z - boundingBox.HalfDepth), // (-, +, -)
+				};
+			}
+
+			Vector3[] boxCorners = new Vector3[]
+			{
+				new Vector3(boundingBox.Center.x + boundingBox.HalfWidth,
+					boundingBox.Center.y + boundingBox.HalfHeight, 
+					boundingBox.Center.z + boundingBox.HalfDepth), // (+,+, +)
+ 				new Vector3(boundingBox.Center.x + boundingBox.HalfWidth,
+					boundingBox.Center.y - boundingBox.HalfHeight, 
+					boundingBox.Center.z + boundingBox.HalfDepth), // (+, -, +)
+ 				new Vector3(boundingBox.Center.x - boundingBox.HalfWidth,
+					boundingBox.Center.y + boundingBox.HalfHeight,
+					boundingBox.Center.z + boundingBox.HalfDepth), // (-, +, +)
+ 				new Vector3(boundingBox.Center.x - boundingBox.HalfWidth,
+					boundingBox.Center.y - boundingBox.HalfHeight,
+					boundingBox.Center.z + boundingBox.HalfDepth), // (-,-, +)
+				new Vector3(boundingBox.Center.x - boundingBox.HalfWidth,
+					boundingBox.Center.y - boundingBox.HalfHeight,
+					boundingBox.Center.z - boundingBox.HalfDepth),	// (-,-,-)
+				new Vector3(boundingBox.Center.x + boundingBox.HalfWidth,
+					boundingBox.Center.y - boundingBox.HalfHeight,
+					boundingBox.Center.z - boundingBox.HalfDepth), 	// (+,-,-)
+				new Vector3(boundingBox.Center.x - boundingBox.HalfWidth,
+					boundingBox.Center.y + boundingBox.HalfHeight,
+					boundingBox.Center.z + boundingBox.HalfDepth), 	// (-, +, +)
+				new Vector3(boundingBox.Center.x - boundingBox.HalfWidth,
+					boundingBox.Center.y + boundingBox.HalfHeight,
+					boundingBox.Center.z - boundingBox.HalfDepth), 	// (-, +, -)
+			};
+
+			sphere3D = new Sphere3D();
+			sphereGenerator.Sphere3D = sphere3D;
+			Vector3[] sos = new Vector3[4];
+			sphere3D = sphereGenerator.WelzlSphere(boxCorners, 8, sos);
+
+			for (int i = 0; i < sphere3DArray.Length; i++)
+			{
+				sphereGenerator.Sphere3D = sphere3DArray[i];
+				sphere3DArray[i] = sphereGenerator.WelzlSphere(boxCornerCorners[i],
+					8, sos);
+			}
+			
+
 			GameObject.Find("GameController").SendMessage("AddCollisionObjects", this);
 		}
 
@@ -93,10 +189,16 @@ namespace Assets.Scripts.GameObjects
 			//	new Vector3(rm[2][0], rm[2][1], rm[2][2]), 
 			//};
 			//orientedBoundingBox.UpdateRotation(rotationVector3);
-			orientedBoundingBox.DrawBoundingBox();
+			//orientedBoundingBox.DrawBoundingBox();
 
+			for (int i = 0; i < sphere3DArray.Length; i++)
+			{
+				sphere3DArray[i].DrawCenterLines();
+			}
+			//sphere3D.DrawCenterLines();
 			boundingBox.UpdateAABB(rotationBox, transform.localRotation.QuaternionTo3x3(), transform.position, ref boundingBox);
 			boundingBox.DrawBoundingBox();
+			// point at collision 2.894078
 		}
 		
 		public void UpdatePosition(Vector3 position)

@@ -13,6 +13,12 @@ namespace Assets.Scripts.GameObjects
 		private AABB3D boundingBox;
 
 		private Sphere3D sphere3D;
+
+		public Sphere3D Sphere3D
+		{
+			get { return sphere3D; }
+		}
+
 		private SphereGeneration sphereGenerator = new SphereGeneration();
 
 		private OBB3D orientedBoundingBox;
@@ -108,8 +114,12 @@ namespace Assets.Scripts.GameObjects
 			else if(Input.GetKey(KeyCode.LeftArrow))
 				UpdatePosition(-moveRight * 5f);
 
-			if(Input.GetKeyDown(KeyCode.UpArrow))
-				UpdatePosition(new Vector2(0.0f, 1.0f) * 5f);
+			if (Input.GetKeyDown(KeyCode.UpArrow))
+			{
+				boundingBox.Center = transform.position;
+				UpdatePosition(new Vector2(0.0f, 1.0f) * 500f);
+			}
+				
 			boundingBox.DrawBoundingBox();
 			sphere3D.DrawCenterLines();
 
@@ -122,16 +132,23 @@ namespace Assets.Scripts.GameObjects
 				new Vector3(rm[2][0], rm[2][1], rm[2][2]), 
 			};
 			orientedBoundingBox.UpdateRotation(rotationVector3);
-			orientedBoundingBox.DrawBoundingBox();
+			//orientedBoundingBox.DrawBoundingBox();
 		}
 
 
 		public void UpdatePosition(Vector3 position)
 		{
 			boundingBox.Center += position * Time.deltaTime;
+			boundingBox.Velocity = position * Time.deltaTime;
 			sphere3D.Center += position * Time.deltaTime;
 			orientedBoundingBox.Center += position * Time.deltaTime;
 			transform.Translate(position * Time.deltaTime, Space.World);
+		}
+
+
+		public Sphere3D[] Sphere3Ds
+		{
+			get { throw new NotImplementedException(); }
 		}
 	}
 }

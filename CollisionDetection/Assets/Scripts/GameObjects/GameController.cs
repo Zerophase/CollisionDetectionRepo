@@ -1,30 +1,49 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts.IntersectionTests;
 using Assets.Scripts.CollisionBoxes.ThreeD;
+using Assets.Scripts.SweptTests;
 
 namespace Assets.Scripts.GameObjects
 {
 	public class GameController : MonoBehaviour 
 	{
 		private Player player;
-		private Ground ground;
+		private List<Ground> grounds = new List<Ground>();
 
 		private AABBIntersection intersection = new AABBIntersection();
 		private OBBIntersection obbIntersection = new OBBIntersection();
+		private Sweep sweep = new Sweep();
 
-		private Vector3 gravity = new Vector3(0.0f, -1.0f);
+		private const float constGravity = -10.0f;
+		private Vector3 gravity = new Vector3(0.0f, -10.0f);
 
+		private float previousTime = 0.0f;
 		// Update is called once per frame
-		void Update () 
+		void Update ()
 		{
-			if (obbIntersection.TestOBBOBB(player.OrientedBoundingBox, ground.OrientedBoundingBox))
+			float hitTime = 0f;
+			bool dontFailWhenTrue = false;
+			for (int i = 0; i < grounds.Count; i++)
 			{
-				gravity = new Vector2(0.0f, 0.0f);
+					if (sweep.TestMovingAABB(player.BoundingBox, player.BoundingBox.Velocity * Time.deltaTime,
+					Time.time, Time.time + Time.deltaTime, grounds[i].BoundingBox, ref hitTime))
+					{
+						if (player.BoundingBox.Velocity.y != 0.0f)
+						{
+							player.transform.position -= (player.BoundingBox.Velocity) * hitTime;
+						}
+							
+						gravity = new Vector2(0.0f, 0.0f);
+						dontFailWhenTrue = true;
+					}
+					else if (!dontFailWhenTrue)
+						gravity = new Vector2(0.0f, constGravity);
 			}
-			else
-				gravity = new Vector2(0.0f, -1.0f);
 
+
+			previousTime = Time.time;
 			player.UpdatePosition(gravity);
 		}
 
@@ -33,7 +52,7 @@ namespace Assets.Scripts.GameObjects
 			if (collider is Player)
 				player = (Player)collider;
 			else if (collider is Ground)
-				ground = (Ground)collider;
+				grounds.Add((Ground)collider);
 		}
 	}
 

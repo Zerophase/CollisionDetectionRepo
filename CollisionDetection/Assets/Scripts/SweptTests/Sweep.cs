@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Scripts.CollisionBoxes.ThreeD;
+using Assets.Scripts.EqualityComparison.Float;
 using Assets.Scripts.IntersectionTests;
 
 namespace Assets.Scripts.SweptTests
@@ -14,9 +15,50 @@ namespace Assets.Scripts.SweptTests
 		AABBIntersection aabbIntersection = new AABBIntersection();
 
 		//TODO An AABB would serve as a good Substitute for us
+		public bool TestMovingAABB(AABB3D b0, Vector3 d, float time0, float time1,
+			AABB3D b1, ref float time)
+		{
+			AABB3D b;
+			//if (time0 > 1.0f)
+			//{
+			//	time0 = time0 % (int)time0;
+			//	time1 = time1 % (int)time1;
+			//}
+			float center = (time0 + time1)*0.5f;
+			float centerTest = center - time0;
+			b = new AABB3D(b0.Center + d * center, centerTest * d.magnitude
+				+ (b0.HalfWidth * 2), centerTest * d.magnitude
+				+ (b0.HalfHeight * 2), centerTest * d.magnitude
+				+ (b0.HalfDepth * 2));
+			b.DrawBoundingBox(Color.blue);
+			if (!aabbIntersection.Intersect(b, b1))
+				return false;
+
+			if (time1 - time0 < Time.deltaTime)
+			{
+				if (time0 > 1.0f)
+				{
+					time = time0 % (float)((int)time0);
+				}
+				else
+					time = time0;
+				return true;
+			}
+
+			if (TestMovingAABB(b0, d, time0, center, b1, ref time))
+				return true;
+
+			return TestMovingAABB(b0, d, center, time1, b1, ref time);
+		}
+
 		public bool TestMovingSphereSphere(Sphere3D s0, Vector3 d, float time0, float time1,
 			Sphere3D s1, ref float time)
 		{
+			//if (FloatComparer.Compare(d.y, 0.0f))
+			//{
+			//	time = 1.0f;
+			//	return true;
+			//}
 			Sphere3D b;
 			float mid = (time0 + time1) * 0.5f;
 			b = new Sphere3D(s0.Center + d * mid, (mid - time0) * d.magnitude + s0.Radius);
@@ -25,7 +67,13 @@ namespace Assets.Scripts.SweptTests
 
 			if (time1 - time0 < Time.deltaTime)
 			{
-				time = time0;
+				if (time0 > 1.0f)
+
+				{
+					time = time0 %(float)((int) time0);
+				}
+				else
+					time = time0;
 				return true;
 			}
 
@@ -46,6 +94,9 @@ namespace Assets.Scripts.SweptTests
 				return false;
 
 			float minDistEnd = minimumObjectDistanctAtTime(a, b, endTime);
+			if (minDistEnd > maxMoveDistSum)
+				return false;
+
 			if(endTime - startTime < Time.deltaTime)
 			{
 				hitTime = startTime;
@@ -62,15 +113,34 @@ namespace Assets.Scripts.SweptTests
 		// TODO Rewrite with correct calcuations
 		public float minimumObjectDistanctAtTime(AABB3D a, AABB3D b, float time)
 		{
-			float distanceTraveled = a.Center.x * time;
-			return distanceTraveled;
+			AABB3D aabb3D = new AABB3D((a.Center) + (b.Center), 
+				((a.HalfWidth)  + b.HalfWidth) * 2, 
+				((a.HalfHeight) + b.HalfHeight) * 2,
+				((a.HalfDepth) + b.HalfDepth) * 2);
+			aabb3D.DrawBoundingBox();
+
+			Vector3 possibleCollisionPositions = aabb3D.Center +
+			                                     new Vector3(aabb3D.HalfWidth, 
+													 aabb3D.HalfHeight,
+				                                     aabb3D.HalfDepth);
+			Vector3 timed = possibleCollisionPositions*time;
+			return timed.magnitude;
 		}
 
 		// TODO Rewrite with correct calcuations
 		public float MaximumObjectMovementOverTime(AABB3D movingObject, float startTime, float endTime)
 		{
-			float distanceTraveled = movingObject.Center.x * (startTime - endTime);
-			return distanceTraveled;
+			AABB3D aabb3D = new AABB3D(movingObject.Center,
+				movingObject.HalfWidth * 2, 
+				movingObject.HalfHeight * 2,
+				movingObject.HalfDepth * 2);
+			Vector3 possibleCollisionPositions = aabb3D.Center +
+												 new Vector3(aabb3D.HalfWidth,
+													 aabb3D.HalfHeight,
+													 aabb3D.HalfDepth);
+			float time = endTime - startTime;
+			Vector3 timed = possibleCollisionPositions*time;
+			return timed.magnitude;
 		}
 	}
 }
