@@ -116,7 +116,6 @@ namespace Assets.Scripts.GameObjects
 
 			if (Input.GetKeyDown(KeyCode.UpArrow))
 			{
-				boundingBox.Center = transform.position;
 				UpdatePosition(new Vector2(0.0f, 1.0f) * 500f);
 			}
 				

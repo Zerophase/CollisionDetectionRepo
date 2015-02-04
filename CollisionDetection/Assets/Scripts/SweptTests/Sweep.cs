@@ -26,7 +26,7 @@ namespace Assets.Scripts.SweptTests
 			//}
 			float center = (time0 + time1)*0.5f;
 			float centerTest = center - time0;
-			b = new AABB3D(b0.Center + d * center, centerTest * d.magnitude
+			b = new AABB3D(b0.Center + d * centerTest, centerTest * d.magnitude
 				+ (b0.HalfWidth * 2), centerTest * d.magnitude
 				+ (b0.HalfHeight * 2), centerTest * d.magnitude
 				+ (b0.HalfDepth * 2));
