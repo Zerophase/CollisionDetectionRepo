@@ -14,7 +14,7 @@ namespace Assets.Scripts.GameObjects
 		AABB3D BoundingBox { get; }
 		Sphere3D Sphere3D { get; }
 		Sphere3D[] Sphere3Ds { get; }
-		void UpdatePosition(Vector3 position);
+		void UpdatePosition();
 	}
 
 
@@ -201,7 +201,7 @@ namespace Assets.Scripts.GameObjects
 			// point at collision 2.894078
 		}
 		
-		public void UpdatePosition(Vector3 position)
+		public void UpdatePosition()
 		{
 			throw new System.NotImplementedException();
 		}

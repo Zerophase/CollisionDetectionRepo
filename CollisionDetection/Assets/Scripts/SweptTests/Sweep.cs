@@ -15,45 +15,63 @@ namespace Assets.Scripts.SweptTests
 		AABBIntersection aabbIntersection = new AABBIntersection();
 
 		//TODO An AABB would serve as a good Substitute for us
+
+		private List<AABB3D> intervalHalvedRects = new List<AABB3D>(); 
+		public void ResetRectangles()
+		{
+			intervalHalvedRects.Clear();
+		}
+
 		public bool TestMovingAABB(AABB3D b0, Vector3 d, float time0, float time1,
 			AABB3D b1, ref float time)
 		{
+				
 			AABB3D b;
-			//if (time0 > 1.0f)
-			//{
-			//	time0 = time0 % (int)time0;
-			//	time1 = time1 % (int)time1;
-			//}
-			float center = (time0 + time1)*0.5f;
-			float centerTest = center - time0;
-			b = new AABB3D(b0.Center + d * centerTest, centerTest * d.magnitude
-				+ (b0.HalfWidth * 2), centerTest * d.magnitude
-				+ (b0.HalfHeight * 2), centerTest * d.magnitude
+			float mid = (time0 + time1)*0.5f;
+			float midTest = mid - time0;
+			Vector3 adjustedD = d*mid;
+			//Debug.Log("Time tested: " + centerTest);
+			b = new AABB3D(b0.Center + adjustedD, midTest * d.magnitude
+				+ (b0.HalfWidth * 2), midTest * d.magnitude
+				+ (b0.HalfHeight * 2), midTest * d.magnitude
 				+ (b0.HalfDepth * 2));
-			b.DrawBoundingBox(Color.blue);
+			//Debug.Log(b);
+
+			intervalHalvedRects.Add(b);
+			//b0.DrawBoundingBox(Color.green);
+			//foreach (var rects in intervalHalvedRects)
+			//{
+			//	rects.DrawBoundingBox(Color.red);
+			//}
 			if (!aabbIntersection.Intersect(b, b1))
 				return false;
 
-			if (time1 - time0 < Time.deltaTime)
+
+			if (time1 - time0 < 0.00001f)
 			{
-				if (time0 > 1.0f)
-				{
-					time = time0 % (float)((int)time0);
-				}
-				else
-					time = time0;
+				time = time0;
 				return true;
 			}
 
-			if (TestMovingAABB(b0, d, time0, center, b1, ref time))
+			if (TestMovingAABB(b0, d, time0, mid, b1, ref time))
 				return true;
 
-			return TestMovingAABB(b0, d, center, time1, b1, ref time);
+			return TestMovingAABB(b0, d, mid, time1, b1, ref time);
 		}
 
+		private List<Sphere3D> spheres = new List<Sphere3D>();
+
+		public void ResetSpheres()
+		{
+			spheres.Clear();
+		}
 		public bool TestMovingSphereSphere(Sphere3D s0, Vector3 d, float time0, float time1,
 			Sphere3D s1, ref float time)
 		{
+			if (time0 > 1.0f)
+			{
+				time0 = time0 % (float)((int)time0);
+			}
 			//if (FloatComparer.Compare(d.y, 0.0f))
 			//{
 			//	time = 1.0f;
@@ -62,17 +80,17 @@ namespace Assets.Scripts.SweptTests
 			Sphere3D b;
 			float mid = (time0 + time1) * 0.5f;
 			b = new Sphere3D(s0.Center + d * mid, (mid - time0) * d.magnitude + s0.Radius);
+			
+			//spheres.Add(b);
+			//foreach (var sphere in spheres)
+			//{
+			//	sphere.DrawCenterLines();
+			//}
 			if(!intersection.TestSphereSphere(b, s1))
 				return false;
 
 			if (time1 - time0 < Time.deltaTime)
 			{
-				if (time0 > 1.0f)
-
-				{
-					time = time0 %(float)((int) time0);
-				}
-				else
 					time = time0;
 				return true;
 			}

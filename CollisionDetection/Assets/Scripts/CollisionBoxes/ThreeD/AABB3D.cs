@@ -26,6 +26,12 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 			get { return halfWidth[2]; }
 			set { halfWidth[2] = value; }
 		}
+
+		public float[] HalfWidths
+		{
+			get { return halfWidth; }
+		}
+
 		public AABB3D(Vector3 center, float width, float height, float depth)
 		{
 			this.center = center;
@@ -47,22 +53,67 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 			return false;
 		}
 
-		public AABB3D AdjustForHitTime(float hitTime)
+		float clamp(float val, float min, float max)
 		{
-			float floatIngPointErro = 0.001f;
-			AABB3D test = new AABB3D((Velocity == Vector3.zero ? center + (Velocity * hitTime)
-				: center * hitTime), 
-					(HalfWidth *2) * 1,
-					(HalfHeight * 2) * 1,
-					(HalfDepth * 2) * 1);
-			test.DrawBoundingBox(Color.red);
-			if (Velocity != Vector3.zero)
+			if (val < min)
+				return min;
+			if (val > max)
+				return max;
+			return val;
+		}
+		public AABB3D AdjustForHitTime(AABB3D movingBox, 
+			Vector3 velocity, ref float hitTime)
+		{
+			hitTime = 1.0f - clamp(hitTime - float.Epsilon, 0f, 1f);
+			Vector3 adjustedCenter = movingBox.Center + (velocity*hitTime);
+			float width = (movingBox.HalfWidth*2) + (velocity.x*hitTime);
+			float height = (movingBox.HalfHeight * 2) + (velocity.y * hitTime);
+			float depth = (movingBox.HalfDepth*2) + (velocity.z*hitTime);
+			AABB3D test = new AABB3D(adjustedCenter, width,
+					height,
+					depth);
+			//Vector3 direction = velocity;
+			//direction.Normalize();
+			//test.Center += new Vector3(direction.x * test.HalfWidth, direction.y * test.HalfHeight,
+			//	direction.z * test.HalfDepth);
+			if (hitTime < 1.0f)
 			{
-				Debug.Log("Center hit point: " + test.center.ToString());
-				Debug.Log("Actual Center: " + center.ToString());
+				Debug.Log("---------------" + hitTime);
 			}
+			test.DrawBoundingBox(Color.blue);
+			//if (Velocity != Vector3.zero)
+			//{
+			//	Debug.Log("Center hit point: " + test.center.ToString());
+			//	Debug.Log("Actual Center: " + center.ToString());
+			//}
 				
 			return test;
+		}
+
+		//plane up
+		// center + extentRight, center + extentUp, Center + extentBack
+		// plane down
+		// center + extentRight, center - extentUp, center + extentBack
+		// plane right
+		// center + extentright, center + extentUp, center + extentBack
+		// plane left
+		// center - extentRight, center + extentUp, center + extentBack
+		
+		public void CalculateNormal(AABB3D collided)
+		{
+			
+		}
+		public void CLosestPointptAABB(Vector3 p, AABB3D b, ref Vector3 q)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				float v = p[i];
+				if (v < b.HalfWidths[i]*2)
+					v = b.Center[i] - b.HalfWidths[i];
+				if (v > b.HalfWidths[i]*2)
+					v = b.Center[i] + b.HalfWidths[i];
+				q[i] = v;
+			}
 		}
 
 		public void DrawBoundingBox(Color color)

@@ -10,6 +10,11 @@ namespace Assets.Scripts.GameObjects
 {
 	public class Player : MonoBehaviour, ICollider
 	{
+		private Ray right;
+		private Ray left;
+		private Ray up;
+		private Ray down;
+
 		private AABB3D boundingBox;
 
 		private Sphere3D sphere3D;
@@ -39,9 +44,9 @@ namespace Assets.Scripts.GameObjects
 		{
 			var boxCollider = gameObject.GetComponent<BoxCollider>();
 			boundingBox = new AABB3D(transform.position,
-				(boxCollider.size.x)* transform.lossyScale.x,
-				(boxCollider.size.y) * transform.lossyScale.y,
-				boxCollider.size.z * transform.lossyScale.z);
+				(boxCollider.size.x ) * (transform.lossyScale.x),
+				(boxCollider.size.y ) * (transform.lossyScale.y),
+				(boxCollider.size.z ) * (transform.lossyScale.z ));
 
 			Debug.Log("Center of AABB is: " + boundingBox.Center +
 				"Half Height is: " + boundingBox.HalfHeight +
@@ -75,7 +80,6 @@ namespace Assets.Scripts.GameObjects
 					boundingBox.Center.y + boundingBox.HalfHeight,
 					boundingBox.Center.z - boundingBox.HalfDepth), 	// (-, +, -)
 			};
-
 			// .8661254
 			sphere3D = new Sphere3D();
 			sphereGenerator.Sphere3D = sphere3D;
@@ -110,16 +114,16 @@ namespace Assets.Scripts.GameObjects
 		void Update()
 		{
 			if(Input.GetKey(KeyCode.RightArrow))
-				UpdatePosition(moveRight * 5f);
+				UpdateVelocity(moveRight * 5f);
 			else if(Input.GetKey(KeyCode.LeftArrow))
-				UpdatePosition(-moveRight * 5f);
+				UpdateVelocity(-moveRight * 5f);
 
 			if (Input.GetKeyDown(KeyCode.UpArrow))
 			{
-				UpdatePosition(new Vector2(0.0f, 1.0f) * 500f);
+				UpdateVelocity(new Vector2(0.0f, 1.0f) * 40f);
 			}
 				
-			boundingBox.DrawBoundingBox();
+			
 			sphere3D.DrawCenterLines();
 
 
@@ -134,14 +138,32 @@ namespace Assets.Scripts.GameObjects
 			//orientedBoundingBox.DrawBoundingBox();
 		}
 
+		public void UpdateVelocity(Vector3 velocity)
+		{
+			boundingBox.Velocity += velocity;
+		}
+
+		public void ResetVelocity()
+		{
+			boundingBox.Velocity = Vector3.zero;
+		}
 
 		public void UpdatePosition(Vector3 position)
 		{
-			boundingBox.Center += position * Time.deltaTime;
-			boundingBox.Velocity = position * Time.deltaTime;
-			sphere3D.Center += position * Time.deltaTime;
-			orientedBoundingBox.Center += position * Time.deltaTime;
-			transform.Translate(position * Time.deltaTime, Space.World);
+			Vector3 framePosisition = position * Time.deltaTime;
+			boundingBox.Center += framePosisition;
+			//boundingBox.Velocity = framePosisition;
+			transform.Translate(framePosisition, Space.World);
+
+			//boundingBox.DrawBoundingBox();
+		}
+		public void UpdatePosition()
+		{
+			Vector3 framePosisition = boundingBox.Velocity*Time.deltaTime;
+			boundingBox.Center += framePosisition;
+			transform.Translate(framePosisition, Space.World);
+
+			boundingBox.DrawBoundingBox();
 		}
 
 
