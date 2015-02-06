@@ -49,6 +49,7 @@ namespace Assets.Scripts.SweptTests
 
 			if (time1 - time0 < 0.00001f)
 			{
+				// Cross Product (b0, b1)
 				time = time0;
 				return true;
 			}

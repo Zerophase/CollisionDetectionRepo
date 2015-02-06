@@ -62,9 +62,9 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 			return val;
 		}
 		public AABB3D AdjustForHitTime(AABB3D movingBox, 
-			Vector3 velocity, ref float hitTime)
+			Vector3 velocity, float hitTime)
 		{
-			hitTime = 1.0f - clamp(hitTime - float.Epsilon, 0f, 1f);
+			//hitTime = 1.0f - clamp(hitTime - float.Epsilon, 0f, 1f);
 			Vector3 adjustedCenter = movingBox.Center + (velocity*hitTime);
 			float width = (movingBox.HalfWidth*2) + (velocity.x*hitTime);
 			float height = (movingBox.HalfHeight * 2) + (velocity.y * hitTime);

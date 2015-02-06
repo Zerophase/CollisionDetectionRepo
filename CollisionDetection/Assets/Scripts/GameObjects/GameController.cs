@@ -45,49 +45,53 @@ namespace Assets.Scripts.GameObjects
 						playerBoundingBox.Velocity * Time.deltaTime, 0f, 1f,
 						groundBoundingBox, ref hitTime))
 					{
-						Vector3 collisionPoint = new Vector3
-							(
-								playerBoundingBox.Center.x - groundBoundingBox.Center.x,
-								playerBoundingBox.Center.y - groundBoundingBox.Center.y,
-								playerBoundingBox.Center.z - groundBoundingBox.Center.z
-							);
-						float ax = Math.Abs(collisionPoint.x);
-						float ay = Math.Abs(collisionPoint.y);
-						float az = Math.Abs(collisionPoint.z);
-
-						float sx = playerBoundingBox.Center.x < groundBoundingBox.Center.x ? -1.0f : 1.0f;
-						float sy = playerBoundingBox.Center.y < groundBoundingBox.Center.y ? -1.0f : 1.0f;
-						float sz = playerBoundingBox.Center.z < groundBoundingBox.Center.z ? -1.0f : 1.0f;
-
-						Vector3 collisionNormal = Vector3.zero;
-						if(ax <= ay && ax <= az)
-							collisionNormal = new Vector3(sx, 0.0f, 0.0f);
-						else if(ay <= az)
-							collisionNormal = new Vector3(0.0f, sy, 0.0f);
-						else
-						{
-							collisionNormal = new Vector3(0.0f, 0.0f, sz);
-						}
-
+//						if (intersection.Intersect(playerBoundingBox, groundBoundingBox.AdjustForHitTime(playerBoundingBox, 
+//						                                                                                 playerBoundingBox.Velocity,
+//						                                                                                 hitTime)) 
+//						{
+//							if(playerBoundingBox.Center - 
+//						}
+//						Vector3 collisionPoint = new Vector3
+//							(
+//								playerBoundingBox.Center.x - groundBoundingBox.Center.x,
+//								playerBoundingBox.Center.y - groundBoundingBox.Center.y,
+//								playerBoundingBox.Center.z - groundBoundingBox.Center.z
+//							);
+//						float ax = Math.Abs(collisionPoint.x);
+//						float ay = Math.Abs(collisionPoint.y);
+//						float az = Math.Abs(collisionPoint.z);
+//
+//						float sx = playerBoundingBox.Center.x < groundBoundingBox.Center.x ? -1.0f : 1.0f;
+//						float sy = playerBoundingBox.Center.y < groundBoundingBox.Center.y ? -1.0f : 1.0f;
+//						float sz = playerBoundingBox.Center.z < groundBoundingBox.Center.z ? -1.0f : 1.0f;
+//
+//						Vector3 collisionNormal = Vector3.zero;
+//						if(ax <= ay && ax <= az)
+//							collisionNormal = new Vector3(sx, 0.0f, 0.0f);
+//						else if(ay <= az)
+//							collisionNormal = new Vector3(0.0f, sy, 0.0f);
+//						else
+//						{
+//							collisionNormal = new Vector3(0.0f, 0.0f, sz);
+//						}
+//
 						float actualHittime = 1.0f - hitTime;
-						if (collisionNormal.x > 0.0f)
-						{
-							Vector3 velocity = new Vector3(playerBoundingBox.Velocity.x, 0.0f, 0.0f);
-							players[k].UpdatePosition(-velocity * actualHittime);
-						}
-
-						if (collisionNormal.y < 0.0f)
-						{
-							Vector3 velocity = new Vector3(0.0f, playerBoundingBox.Velocity.y, 0.0f);
-							players[k].UpdatePosition(velocity * actualHittime);
-						}
-						if (collisionNormal.y > 0.0f)
-						{
+////						if (collisionNormal.x > 0.0f)
+////						{
+//							Vector3 velocity = new Vector3(playerBoundingBox.Velocity.x, 0.0f, 0.0f);
+//							players[k].UpdatePosition(-velocity * actualHittime);
+////						}
+//
+//						if (collisionNormal.y < 0.0f)
+//						{
+//							Vector3 velocity = new Vector3(0.0f, playerBoundingBox.Velocity.y, 0.0f);
+//							players[k].UpdatePosition(velocity * actualHittime);
+//						}
+					
 							players[k].UpdatePosition(-gravity * actualHittime);
-						}
-							
-						Debug.Log("Collision with Sweep");
-							grounds[i].BoundingBox.DrawBoundingBox(Color.green);
+//							
+//						Debug.Log("Collision with Sweep");
+//							grounds[i].BoundingBox.DrawBoundingBox(Color.green);
 							
 					}
 				}
