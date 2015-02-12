@@ -191,10 +191,6 @@ namespace Assets.Scripts.GameObjects
 			//orientedBoundingBox.UpdateRotation(rotationVector3);
 			//orientedBoundingBox.DrawBoundingBox();
 
-			for (int i = 0; i < sphere3DArray.Length; i++)
-			{
-				sphere3DArray[i].DrawCenterLines();
-			}
 			//sphere3D.DrawCenterLines();
 			boundingBox.UpdateAABB(rotationBox, transform.localRotation.QuaternionTo3x3(), transform.position, ref boundingBox);
 			boundingBox.DrawBoundingBox();

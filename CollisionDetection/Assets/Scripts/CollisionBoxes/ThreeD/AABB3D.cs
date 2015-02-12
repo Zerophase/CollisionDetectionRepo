@@ -32,15 +32,57 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 			get { return halfWidth; }
 		}
 
+		public Vector3 Velocity = Vector3.zero;
+
+		private Plane top;
+		public Plane Top { get { return top; } }
+		private Plane bottom;
+		public Plane Bottom { get { return bottom; } }
+		private Plane left;
+		public Plane Left { get { return left;} }
+		private Plane right;
+		public Plane Right { get { return right; } }
+		private Plane front;
+		public Plane Front { get { return front; } }
+		private Plane back;
+		public Plane Back { get { return back;} }
+
 		public AABB3D(Vector3 center, float width, float height, float depth)
 		{
 			this.center = center;
 
 			halfWidth = new float[3] {width/2.0f, height/2.0f, depth/ 2.0f};
+
+			Vector3 topLeft = new Vector3(Center.x - HalfWidth, Center.y + HalfHeight, Center.z - HalfDepth);
+			Vector3 topCenter = new Vector3(Center.x + HalfWidth, Center.y + HalfHeight, Center.z - HalfDepth);
+			Vector3 topRight = new Vector3(Center.x + HalfWidth, Center.y + HalfHeight, Center.z + HalfDepth);
+			top = new Plane(topCenter, topLeft, topRight);
+
+			Vector3 bottomLeft = new Vector3(Center.x - HalfWidth, Center.y - HalfHeight, Center.z - HalfDepth);
+			Vector3 bottomCenter = new Vector3(Center.x - HalfWidth, Center.y - HalfHeight, Center.z + HalfDepth);
+			Vector3 bottomRight = new Vector3(Center.x + HalfWidth, Center.y - HalfHeight, Center.z + HalfDepth);
+			bottom = new Plane(bottomCenter, bottomLeft, bottomRight);
+
+			Vector3 leftTop = new Vector3(Center.x - HalfWidth, Center.y + HalfHeight, Center.z - HalfDepth);
+			Vector3 leftCenter = new Vector3(Center.x - HalfWidth, Center.y - HalfHeight, Center.z + HalfDepth);
+			Vector3 leftBottom = new Vector3(Center.x - HalfWidth, Center.y - HalfHeight, Center.z - HalfDepth);
+			left = new Plane(leftCenter, leftTop, leftBottom);
+
+			Vector3 rightTop = new Vector3(Center.x + HalfWidth, Center.y + HalfHeight, Center.z - HalfDepth);
+			Vector3 rightCenter = new Vector3(Center.x + HalfWidth, Center.y - HalfHeight, Center.z - HalfDepth);
+			Vector3 rightBottom = new Vector3(Center.x + HalfWidth, Center.y - HalfHeight, Center.z + HalfDepth);
+			right = new Plane(rightCenter, rightTop, rightBottom);
+
+			Vector3 frontTop = new Vector3(Center.x + HalfWidth, Center.y + HalfHeight, Center.z - HalfDepth);
+			Vector3 frontCenter = new Vector3(Center.x - HalfWidth, Center.y + HalfHeight, Center.z - HalfDepth);
+			Vector3 frontBottom = new Vector3(Center.x + HalfWidth, Center.y - HalfHeight, Center.z - HalfDepth);
+			front = new Plane(frontCenter, frontTop, frontBottom);
+
+			Vector3 backTop = new Vector3(Center.x + HalfWidth, Center.y + HalfHeight, Center.z + HalfDepth);
+			Vector3 backCenter = new Vector3(Center.x - HalfWidth, Center.y - HalfHeight, Center.z + HalfDepth);
+			Vector3 backBottom = new Vector3(Center.x - HalfWidth, Center.y + HalfHeight, Center.z + HalfDepth);
+			back = new Plane(backCenter, backTop, backBottom);
 		}
-
-		public Vector3 Velocity = Vector3.zero;
-
 		public override bool Equals(object obj)
 		{
 			AABB3D test = (AABB3D) obj;
@@ -89,15 +131,6 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 				
 			return test;
 		}
-
-		//plane up
-		// center + extentRight, center + extentUp, Center + extentBack
-		// plane down
-		// center + extentRight, center - extentUp, center + extentBack
-		// plane right
-		// center + extentright, center + extentUp, center + extentBack
-		// plane left
-		// center - extentRight, center + extentUp, center + extentBack
 		
 		public void CalculateNormal(AABB3D collided)
 		{
@@ -149,6 +182,8 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 				color);
 			Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
 				color);
+
+			drawNormals();
 		}
 
 		public void DrawBoundingBox()
@@ -184,6 +219,29 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 				Color.magenta);
 			Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
 				Color.magenta);
+
+			drawNormals();
+		}
+
+		private void drawNormals()
+		{
+			Vector3 topPosition = new Vector3(Center.x, center.y + HalfHeight, Center.z);
+			top.DrawNormal(topPosition);
+
+			Vector3 bottomPosition = new Vector3(Center.x, Center.y - HalfHeight, Center.z);
+			bottom.DrawNormal(bottomPosition);
+
+			Vector3 leftPosition = new Vector3(Center.x - HalfWidth, Center.y, Center.z);
+			left.DrawNormal(leftPosition);
+
+			Vector3 rightPosition = new Vector3(Center.x + HalfWidth, Center.y, Center.z);
+			right.DrawNormal(rightPosition);
+
+			Vector3 fontPosition = new Vector3(Center.x, Center.y, Center.z - HalfDepth);
+			front.DrawNormal(fontPosition);
+
+			Vector3 backPosition = new Vector3(Center.x, Center.y, Center.z + HalfDepth);
+			back.DrawNormal(backPosition);
 		}
 
 		public void UpdateAABB(AABB3D a, float[][] m, Vector3 t, ref AABB3D b)

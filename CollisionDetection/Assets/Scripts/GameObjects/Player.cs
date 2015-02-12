@@ -124,8 +124,7 @@ namespace Assets.Scripts.GameObjects
 			}
 				
 			
-			sphere3D.DrawCenterLines();
-
+			//sphere3D.DrawCenterLines();
 
 			float[][] rm = transform.localRotation.QuaternionTo3x3();
 			Vector3[] rotationVector3 =
@@ -155,7 +154,7 @@ namespace Assets.Scripts.GameObjects
 			//boundingBox.Velocity = framePosisition;
 			transform.Translate(framePosisition, Space.World);
 
-			//boundingBox.DrawBoundingBox();
+			boundingBox.DrawBoundingBox();
 		}
 		public void UpdatePosition()
 		{

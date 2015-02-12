@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Scripts.CollisionBoxes.ThreeD;
+using Plane = Assets.Scripts.CollisionBoxes.ThreeD.Plane;
 using Assets.Scripts.EqualityComparison.Float;
 using Assets.Scripts.IntersectionTests;
 
@@ -13,8 +14,7 @@ namespace Assets.Scripts.SweptTests
 	{
 		SphereIntersection intersection = new SphereIntersection();
 		AABBIntersection aabbIntersection = new AABBIntersection();
-
-		//TODO An AABB would serve as a good Substitute for us
+		PlaneIntersection planeIntersection = new PlaneIntersection();
 
 		private List<AABB3D> intervalHalvedRects = new List<AABB3D>(); 
 		public void ResetRectangles()
@@ -49,7 +49,11 @@ namespace Assets.Scripts.SweptTests
 
 			if (time1 - time0 < 0.00001f)
 			{
-				// Cross Product (b0, b1)
+				Plane bottom = b.Bottom;
+				Vector3 point = Vector3.zero;
+				Vector3 directionVector = Vector3.zero;
+				planeIntersection.IntersectPlanes(bottom, b1.Top, ref point,
+					ref directionVector);
 				time = time0;
 				return true;
 			}
