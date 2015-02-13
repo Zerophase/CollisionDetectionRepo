@@ -35,17 +35,34 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 		public Vector3 Velocity = Vector3.zero;
 
 		private Plane top;
-		public Plane Top { get { return top; } }
 		private Plane bottom;
-		public Plane Bottom { get { return bottom; } }
 		private Plane left;
-		public Plane Left { get { return left;} }
 		private Plane right;
-		public Plane Right { get { return right; } }
 		private Plane front;
-		public Plane Front { get { return front; } }
 		private Plane back;
+
+		public Plane Top { get { return top; } }
+		public Plane Bottom { get { return bottom; } }
+		public Plane Left { get { return left;} }
+		public Plane Right { get { return right; } }
+		public Plane Front { get { return front; } }
 		public Plane Back { get { return back;} }
+
+		private Vector3 distanceToTop;
+		private Vector3 distanceToBottom;
+		private Vector3 distanceToLeft;
+		private Vector3 distanceToRight;
+		private Vector3 distanceToFront;
+		private Vector3 distanceToBack;
+
+		public Vector3 DistanceToTop {get { return Center + distanceToTop;}}
+		public Vector3 DistanceToBottom {get {return Center + distanceToBottom; }}
+		public Vector3 DistanceToLeft {get {return Center + distanceToLeft;}}
+		public Vector3 DistanceToRight {get {return Center + distanceToRight;}}
+		public Vector3 DistanceToFront {get {return Center + distanceToFront; }}
+		public Vector3 DistanceToBack {get {return Center + distanceToBack; }}
+
+		public Vector3[] NormalCollision = new Vector3[3];
 
 		public AABB3D(Vector3 center, float width, float height, float depth)
 		{
@@ -53,31 +70,37 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 
 			halfWidth = new float[3] {width/2.0f, height/2.0f, depth/ 2.0f};
 
+			distanceToTop = new Vector3(0.0f, HalfHeight, 0.0f);
 			Vector3 topLeft = new Vector3(Center.x - HalfWidth, Center.y + HalfHeight, Center.z - HalfDepth);
 			Vector3 topCenter = new Vector3(Center.x + HalfWidth, Center.y + HalfHeight, Center.z - HalfDepth);
 			Vector3 topRight = new Vector3(Center.x + HalfWidth, Center.y + HalfHeight, Center.z + HalfDepth);
 			top = new Plane(topCenter, topLeft, topRight);
 
+			distanceToBottom = new Vector3(0.0f, -HalfHeight, 0.0f);
 			Vector3 bottomLeft = new Vector3(Center.x - HalfWidth, Center.y - HalfHeight, Center.z - HalfDepth);
 			Vector3 bottomCenter = new Vector3(Center.x - HalfWidth, Center.y - HalfHeight, Center.z + HalfDepth);
 			Vector3 bottomRight = new Vector3(Center.x + HalfWidth, Center.y - HalfHeight, Center.z + HalfDepth);
 			bottom = new Plane(bottomCenter, bottomLeft, bottomRight);
 
+			distanceToLeft = new Vector3(-HalfWidth, 0.0f, 0.0f);
 			Vector3 leftTop = new Vector3(Center.x - HalfWidth, Center.y + HalfHeight, Center.z - HalfDepth);
 			Vector3 leftCenter = new Vector3(Center.x - HalfWidth, Center.y - HalfHeight, Center.z + HalfDepth);
 			Vector3 leftBottom = new Vector3(Center.x - HalfWidth, Center.y - HalfHeight, Center.z - HalfDepth);
 			left = new Plane(leftCenter, leftTop, leftBottom);
 
+			distanceToRight = new Vector3(HalfWidth, 0.0f, 0.0f);
 			Vector3 rightTop = new Vector3(Center.x + HalfWidth, Center.y + HalfHeight, Center.z - HalfDepth);
 			Vector3 rightCenter = new Vector3(Center.x + HalfWidth, Center.y - HalfHeight, Center.z - HalfDepth);
 			Vector3 rightBottom = new Vector3(Center.x + HalfWidth, Center.y - HalfHeight, Center.z + HalfDepth);
 			right = new Plane(rightCenter, rightTop, rightBottom);
 
+			distanceToFront = new Vector3(0.0f, 0.0f, -HalfDepth);
 			Vector3 frontTop = new Vector3(Center.x + HalfWidth, Center.y + HalfHeight, Center.z - HalfDepth);
 			Vector3 frontCenter = new Vector3(Center.x - HalfWidth, Center.y + HalfHeight, Center.z - HalfDepth);
 			Vector3 frontBottom = new Vector3(Center.x + HalfWidth, Center.y - HalfHeight, Center.z - HalfDepth);
 			front = new Plane(frontCenter, frontTop, frontBottom);
 
+			distanceToBack = new Vector3(0.0f, 0.0f, HalfDepth);
 			Vector3 backTop = new Vector3(Center.x + HalfWidth, Center.y + HalfHeight, Center.z + HalfDepth);
 			Vector3 backCenter = new Vector3(Center.x - HalfWidth, Center.y - HalfHeight, Center.z + HalfDepth);
 			Vector3 backBottom = new Vector3(Center.x - HalfWidth, Center.y + HalfHeight, Center.z + HalfDepth);

@@ -21,5 +21,11 @@ namespace Assets.Scripts.IntersectionTests
 			p = Vector3.Cross(p1.D*p2.Normal - p2.D*p1.Normal, direction);
 			return true;
 		}
+
+		public float ClosestVector3ToPlane(Vector3 q, Plane p)
+		{
+			//float t = Vector3.Dot(p.Normal, q) - p.D;
+			return  (Vector3.Dot(p.Normal, q) - p.D) / Vector3.Dot(p.Normal, p.Normal); //q - t * p.Normal;
+		}
 	}
 }

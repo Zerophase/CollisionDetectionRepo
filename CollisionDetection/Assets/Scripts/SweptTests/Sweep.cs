@@ -49,11 +49,13 @@ namespace Assets.Scripts.SweptTests
 
 			if (time1 - time0 < 0.00001f)
 			{
-				Plane bottom = b.Bottom;
-				Vector3 point = Vector3.zero;
-				Vector3 directionVector = Vector3.zero;
-				planeIntersection.IntersectPlanes(bottom, b1.Top, ref point,
-					ref directionVector);
+				Vector3 bottomVector = b.Bottom.Normal + b.DistanceToBottom;
+				float top = planeIntersection.ClosestVector3ToPlane(bottomVector, b1.Top);
+
+				Vector3 topVector = b.Top.Normal + b.DistanceToTop;
+				float bottom = planeIntersection.ClosestVector3ToPlane(topVector, b1.Bottom);
+
+				normalCollision(top, bottom, ref b, b1);
 				time = time0;
 				return true;
 			}
@@ -64,6 +66,21 @@ namespace Assets.Scripts.SweptTests
 			return TestMovingAABB(b0, d, mid, time1, b1, ref time);
 		}
 
+		private void normalCollision(float top, float bottom, ref AABB3D movingBox, AABB3D b1)
+		{
+			if(Math.Abs(top) > Math.Abs(bottom))
+			{
+				Debug.Log("Top: " + top);
+				movingBox.NormalCollision[0] = movingBox.Top.Normal;
+			}
+			else if(Math.Abs(bottom) > Math.Abs(top))
+			{
+				Debug.Log("Bottom: " + bottom);
+				movingBox.NormalCollision[0] = movingBox.Bottom.Normal;
+			}
+		}
+
+		#region Sphere Test
 		private List<Sphere3D> spheres = new List<Sphere3D>();
 
 		public void ResetSpheres()
@@ -165,5 +182,6 @@ namespace Assets.Scripts.SweptTests
 			Vector3 timed = possibleCollisionPositions*time;
 			return timed.magnitude;
 		}
+		#endregion
 	}
 }

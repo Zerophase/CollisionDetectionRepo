@@ -21,7 +21,7 @@ namespace Assets.Scripts.GameObjects
 		private Sweep sweep = new Sweep();
 
 		private const float constGravity = -10.0f;
-		public static Vector3 gravity = new Vector3(0.0f, -10.0f);
+		public static Vector3 gravity = new Vector3(0.0f, 0.0f);
 		private List<Vector3> previousCorrections = new List<Vector3>();
 		private List<float> previousHitTime = new List<float>(); 
 		private float previousTime = 0.0f;
@@ -88,7 +88,7 @@ namespace Assets.Scripts.GameObjects
 //							players[k].UpdatePosition(velocity * actualHittime);
 //						}
 					
-							players[k].UpdatePosition(-gravity * actualHittime);
+							//players[k].UpdatePosition(-gravity * actualHittime);
 //							
 //						Debug.Log("Collision with Sweep");
 //							grounds[i].BoundingBox.DrawBoundingBox(Color.green);

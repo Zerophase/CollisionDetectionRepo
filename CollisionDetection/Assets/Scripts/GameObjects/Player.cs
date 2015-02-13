@@ -118,10 +118,12 @@ namespace Assets.Scripts.GameObjects
 			else if(Input.GetKey(KeyCode.LeftArrow))
 				UpdateVelocity(-moveRight * 5f);
 
-			if (Input.GetKeyDown(KeyCode.UpArrow))
+			if (Input.GetKey(KeyCode.UpArrow))
 			{
-				UpdateVelocity(new Vector2(0.0f, 1.0f) * 40f);
+				UpdateVelocity((new Vector2(0.0f, 1.0f)) * 40f * Time.deltaTime);
 			}
+			else if(Input.GetKey(KeyCode.DownArrow))
+				UpdateVelocity(new Vector2(0.0f, -1.0f) * 40f * Time.deltaTime);
 				
 			
 			//sphere3D.DrawCenterLines();
