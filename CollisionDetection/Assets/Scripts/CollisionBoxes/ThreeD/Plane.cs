@@ -19,10 +19,10 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 			d = Vector3.Dot(normal, a);
 		}
 
-		public void DrawNormal(Vector3 start)
+		public void DrawNormal(Vector3 start, Color color)
 		{
 			Vector3 normalPosition = start + normal;
-			Debug.DrawLine(start, normalPosition, Color.magenta);	
+			Debug.DrawLine(start, normalPosition, color);	
 		}
 	}
 }

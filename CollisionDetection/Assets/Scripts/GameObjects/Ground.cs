@@ -90,40 +90,40 @@ namespace Assets.Scripts.GameObjects
 			}
 
 			Vector3[][] boxCornerCorners = new Vector3[6][];
-			for (int i = 0; i < sphere3DArray.Length; i++)
-			{
-				float halfWidth = boundingBox.HalfWidth/boundingBox.HalfWidth;
-				Vector3 center = new Vector3((boundingBox.Center.x - boundingBox.HalfWidth)
-					+ (halfWidth * (i + 1)),
-					boundingBox.Center.y, boundingBox.Center.z);
-				boxCornerCorners[i] = new Vector3[]
-				{
-					new Vector3(center.x + halfWidth,
-						center.y + boundingBox.HalfHeight,
-						center.z + boundingBox.HalfDepth), // (+,+, +)
-					new Vector3(center.x + halfWidth,
-						center.y - boundingBox.HalfHeight,
-						center.z + boundingBox.HalfDepth), // (+, -, +)
-					new Vector3(center.x - halfWidth,
-						center.y + boundingBox.HalfHeight,
-						center.z + boundingBox.HalfDepth), // (-, +, +)
-					new Vector3(center.x - halfWidth,
-						center.y - boundingBox.HalfHeight,
-						center.z + boundingBox.HalfDepth), // (-,-, +)
-					new Vector3(center.x - halfWidth,
-						center.y - boundingBox.HalfHeight,
-						center.z - boundingBox.HalfDepth), // (-,-,-)
-					new Vector3(center.x + halfWidth,
-						center.y - boundingBox.HalfHeight,
-						center.z - boundingBox.HalfDepth), // (+,-,-)
-					new Vector3(center.x - halfWidth,
-						center.y + boundingBox.HalfHeight,
-						center.z + boundingBox.HalfDepth), // (-, +, +)
-					new Vector3(center.x - halfWidth,
-						center.y + boundingBox.HalfHeight,
-						center.z - boundingBox.HalfDepth), // (-, +, -)
-				};
-			}
+			//for (int i = 0; i < sphere3DArray.Length; i++)
+			//{
+			//	float halfWidth = boundingBox.HalfWidth/boundingBox.HalfWidth;
+			//	Vector3 center = new Vector3((boundingBox.Center.x - boundingBox.HalfWidth)
+			//		+ (halfWidth * (i + 1)),
+			//		boundingBox.Center.y, boundingBox.Center.z);
+			//	boxCornerCorners[i] = new Vector3[]
+			//	{
+			//		new Vector3(center.x + halfWidth,
+			//			center.y + boundingBox.HalfHeight,
+			//			center.z + boundingBox.HalfDepth), // (+,+, +)
+			//		new Vector3(center.x + halfWidth,
+			//			center.y - boundingBox.HalfHeight,
+			//			center.z + boundingBox.HalfDepth), // (+, -, +)
+			//		new Vector3(center.x - halfWidth,
+			//			center.y + boundingBox.HalfHeight,
+			//			center.z + boundingBox.HalfDepth), // (-, +, +)
+			//		new Vector3(center.x - halfWidth,
+			//			center.y - boundingBox.HalfHeight,
+			//			center.z + boundingBox.HalfDepth), // (-,-, +)
+			//		new Vector3(center.x - halfWidth,
+			//			center.y - boundingBox.HalfHeight,
+			//			center.z - boundingBox.HalfDepth), // (-,-,-)
+			//		new Vector3(center.x + halfWidth,
+			//			center.y - boundingBox.HalfHeight,
+			//			center.z - boundingBox.HalfDepth), // (+,-,-)
+			//		new Vector3(center.x - halfWidth,
+			//			center.y + boundingBox.HalfHeight,
+			//			center.z + boundingBox.HalfDepth), // (-, +, +)
+			//		new Vector3(center.x - halfWidth,
+			//			center.y + boundingBox.HalfHeight,
+			//			center.z - boundingBox.HalfDepth), // (-, +, -)
+			//	};
+			//}
 
 			Vector3[] boxCorners = new Vector3[]
 			{
@@ -153,17 +153,17 @@ namespace Assets.Scripts.GameObjects
 					boundingBox.Center.z - boundingBox.HalfDepth), 	// (-, +, -)
 			};
 
-			sphere3D = new Sphere3D();
-			sphereGenerator.Sphere3D = sphere3D;
-			Vector3[] sos = new Vector3[4];
-			sphere3D = sphereGenerator.WelzlSphere(boxCorners, 8, sos);
+			//sphere3D = new Sphere3D();
+			//sphereGenerator.Sphere3D = sphere3D;
+			//Vector3[] sos = new Vector3[4];
+			//sphere3D = sphereGenerator.WelzlSphere(boxCorners, 8, sos);
 
-			for (int i = 0; i < sphere3DArray.Length; i++)
-			{
-				sphereGenerator.Sphere3D = sphere3DArray[i];
-				sphere3DArray[i] = sphereGenerator.WelzlSphere(boxCornerCorners[i],
-					8, sos);
-			}
+			//for (int i = 0; i < sphere3DArray.Length; i++)
+			//{
+			//	sphereGenerator.Sphere3D = sphere3DArray[i];
+			//	sphere3DArray[i] = sphereGenerator.WelzlSphere(boxCornerCorners[i],
+			//		8, sos);
+			//}
 			
 
 			GameObject.Find("GameController").SendMessage("AddCollisionObjects", this);

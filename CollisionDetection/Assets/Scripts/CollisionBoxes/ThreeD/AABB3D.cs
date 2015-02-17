@@ -211,60 +211,60 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 
 		public void DrawBoundingBox()
 		{
-			// back face
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z + HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z + HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z + HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(Center.x - HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z + HalfDepth),
-				Color.magenta);
+			//// back face
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z + HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z + HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z + HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(Center.x - HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z + HalfDepth),
+			//	Color.magenta);
 
-			//// front face
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth),
-				Color.magenta);
+			////// front face
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
 
-			//// side face
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z + HalfDepth), new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z - HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
-				Color.magenta);
+			////// side face
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z + HalfDepth), new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x - HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x - HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
 
-			//// Other side face
-			Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth),
-				Color.magenta);
-			Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
-				Color.magenta);
+			////// Other side face
+			//Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z + HalfDepth), new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
+			//Debug.DrawLine(new Vector3(center.x + HalfWidth, center.y - HalfHeight, center.z - HalfDepth), new Vector3(center.x + HalfWidth, center.y + HalfHeight, center.z - HalfDepth),
+			//	Color.magenta);
 
-			drawNormals();
+			//drawNormals();
 		}
 
 		private void drawNormals()
 		{
 			Vector3 topPosition = new Vector3(Center.x, center.y + HalfHeight, Center.z);
-			top.DrawNormal(topPosition);
+			top.DrawNormal(topPosition, Color.magenta);
 
 			Vector3 bottomPosition = new Vector3(Center.x, Center.y - HalfHeight, Center.z);
-			bottom.DrawNormal(bottomPosition);
+			bottom.DrawNormal(bottomPosition, Color.magenta);
 
 			Vector3 leftPosition = new Vector3(Center.x - HalfWidth, Center.y, Center.z);
-			left.DrawNormal(leftPosition);
+			left.DrawNormal(leftPosition, Color.blue);
 
 			Vector3 rightPosition = new Vector3(Center.x + HalfWidth, Center.y, Center.z);
-			right.DrawNormal(rightPosition);
+			right.DrawNormal(rightPosition, Color.blue);
 
 			Vector3 fontPosition = new Vector3(Center.x, Center.y, Center.z - HalfDepth);
-			front.DrawNormal(fontPosition);
+			front.DrawNormal(fontPosition, Color.green);
 
 			Vector3 backPosition = new Vector3(Center.x, Center.y, Center.z + HalfDepth);
-			back.DrawNormal(backPosition);
+			back.DrawNormal(backPosition, Color.green);
 		}
 
 		public void UpdateAABB(AABB3D a, float[][] m, Vector3 t, ref AABB3D b)

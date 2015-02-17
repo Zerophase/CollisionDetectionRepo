@@ -22,11 +22,10 @@ namespace Assets.Scripts.SweptTests
 			intervalHalvedRects.Clear();
 		}
 
+		private AABB3D b;
 		public bool TestMovingAABB(AABB3D b0, Vector3 d, float time0, float time1,
 			AABB3D b1, ref float time)
 		{
-				
-			AABB3D b;
 			float mid = (time0 + time1)*0.5f;
 			float midTest = mid - time0;
 			Vector3 adjustedD = d*mid;
@@ -37,7 +36,7 @@ namespace Assets.Scripts.SweptTests
 				+ (b0.HalfDepth * 2));
 			//Debug.Log(b);
 
-			intervalHalvedRects.Add(b);
+			//intervalHalvedRects.Add(b);
 			//b0.DrawBoundingBox(Color.green);
 			//foreach (var rects in intervalHalvedRects)
 			//{
@@ -47,15 +46,9 @@ namespace Assets.Scripts.SweptTests
 				return false;
 
 
-			if (time1 - time0 < 0.00001f)
+			if (time1 - time0 < 0.1f)
 			{
-				Vector3 bottomVector = b.Bottom.Normal + b.DistanceToBottom;
-				float top = planeIntersection.ClosestVector3ToPlane(bottomVector, b1.Top);
-
-				Vector3 topVector = b.Top.Normal + b.DistanceToTop;
-				float bottom = planeIntersection.ClosestVector3ToPlane(topVector, b1.Bottom);
-
-				normalCollision(top, bottom, ref b, b1);
+				normalCollision(b, b0, b1);
 				time = time0;
 				return true;
 			}
@@ -66,17 +59,46 @@ namespace Assets.Scripts.SweptTests
 			return TestMovingAABB(b0, d, mid, time1, b1, ref time);
 		}
 
-		private void normalCollision(float top, float bottom, ref AABB3D movingBox, AABB3D b1)
+		private float wy;
+		private float hx;
+		private void normalCollision(AABB3D movingBox, AABB3D b0, AABB3D b1)
 		{
-			if(Math.Abs(top) > Math.Abs(bottom))
+			for (int i = 0; i < b0.NormalCollision.Length; i++)
 			{
-				Debug.Log("Top: " + top);
-				movingBox.NormalCollision[0] = movingBox.Top.Normal;
+				b0.NormalCollision[i] = Vector3.zero;
 			}
-			else if(Math.Abs(bottom) > Math.Abs(top))
+
+			wy = (movingBox.HalfWidth*2 + b1.HalfWidth*2)*(movingBox.Center.y - b1.Center.y);
+			hx = (movingBox.HalfHeight*2 + b1.HalfHeight*2)*(movingBox.Center.x - b1.Center.x);
+
+			if (wy > hx)
 			{
-				Debug.Log("Bottom: " + bottom);
-				movingBox.NormalCollision[0] = movingBox.Bottom.Normal;
+				if (wy > -hx)
+				{
+					//Debug.Log("Bottom: " + bottom);
+					b0.NormalCollision[1] = movingBox.Bottom.Normal;
+				}
+				else
+				{
+					//Debug.Log("Right: " + right);
+					b0.NormalCollision[0] = movingBox.Right.Normal;
+					
+				}
+			}
+			else
+			{
+				if (wy > -hx)
+				{
+					//Debug.Log("Left: " + left);
+					b0.NormalCollision[0] = movingBox.Left.Normal;
+				}
+				else
+				{
+					//Debug.Log("Top: " + top);
+
+					b0.NormalCollision[1] = movingBox.Top.Normal;
+					
+				}
 			}
 		}
 
