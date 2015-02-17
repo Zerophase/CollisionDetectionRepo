@@ -9,7 +9,7 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 		private Vector3 center;
 		public Vector3 Center { get { return center; } set { center = value; } }
 
-		private readonly float[] halfWidth;
+		private float[] halfWidth;
 
 		public float HalfHeight
 		{
@@ -30,6 +30,7 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 		public float[] HalfWidths
 		{
 			get { return halfWidth; }
+			set { halfWidth = value; }
 		}
 
 		public Vector3 Velocity = Vector3.zero;
@@ -63,6 +64,11 @@ namespace Assets.Scripts.CollisionBoxes.ThreeD
 		public Vector3 DistanceToBack {get {return Center + distanceToBack; }}
 
 		public Vector3[] NormalCollision = new Vector3[3];
+
+		public AABB3D()
+		{
+			halfWidth = new float[3];
+		}
 
 		public AABB3D(Vector3 center, float width, float height, float depth)
 		{

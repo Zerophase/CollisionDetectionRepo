@@ -30,7 +30,7 @@ namespace Assets.Scripts.GameObjects
 
 		private AABB3D playerBoundingBox;
 		private AABB3D groundBoundingBox;
-		private Vector3 velocity;
+		private Vector3 velocity = new Vector3(0.0f, 0.0f, 0.0f);
 		// Update is called once per frame
 		void Update ()
 		{
@@ -50,20 +50,29 @@ namespace Assets.Scripts.GameObjects
 						float actualHittime = 1.0f - hitTime;
 						if (playerBoundingBox.NormalCollision[0].x > 0.0f)
 						{
-							velocity = new Vector3(playerBoundingBox.Velocity.x, 0.0f, 0.0f);
+							velocity.x = playerBoundingBox.Velocity.x;
+							velocity.y = 0.0f;
+							velocity.z = 0.0f;
+							//velocity = new Vector3(playerBoundingBox.Velocity.x, 0.0f, 0.0f);
 							//Debug.Log("Player x Velocity going right: " + playerBoundingBox.Velocity.x);
 							players[k].UpdateVelocity(-velocity * actualHittime);
 						}
 						else if (playerBoundingBox.NormalCollision[0].x < 0.0f)
 						{
-							velocity = new Vector3(playerBoundingBox.Velocity.x, 0.0f, 0.0f);
+							velocity.x = playerBoundingBox.Velocity.x;
+							velocity.y = 0.0f;
+							velocity.z = 0.0f;
+							//velocity = new Vector3(playerBoundingBox.Velocity.x, 0.0f, 0.0f);
 							//Debug.Log("Player x Velocity going left: " + playerBoundingBox.Velocity.x);
 							players[k].UpdateVelocity(-velocity * actualHittime);
 						}
 
 						if (playerBoundingBox.NormalCollision[1].y < 0.0f)
 						{
-							velocity = new Vector3(0.0f, playerBoundingBox.Velocity.y, 0.0f);
+							velocity.x = 0.0f;
+							velocity.y = playerBoundingBox.Velocity.y;
+							velocity.z = 0.0f;
+							//velocity = new Vector3(0.0f, playerBoundingBox.Velocity.y, 0.0f);
 							players[k].UpdateVelocity(-velocity * actualHittime);
 						}
 							

@@ -22,7 +22,7 @@ namespace Assets.Scripts.SweptTests
 			intervalHalvedRects.Clear();
 		}
 
-		private AABB3D b;
+		private AABB3D b = new AABB3D();
 		public bool TestMovingAABB(AABB3D b0, Vector3 d, float time0, float time1,
 			AABB3D b1, ref float time)
 		{
@@ -30,10 +30,14 @@ namespace Assets.Scripts.SweptTests
 			float midTest = mid - time0;
 			Vector3 adjustedD = d*mid;
 			//Debug.Log("Time tested: " + centerTest);
-			b = new AABB3D(b0.Center + adjustedD, midTest * d.magnitude
-				+ (b0.HalfWidth * 2), midTest * d.magnitude
-				+ (b0.HalfHeight * 2), midTest * d.magnitude
-				+ (b0.HalfDepth * 2));
+			b.Center = b0.Center + adjustedD;
+			b.HalfWidths[0] = midTest*d.magnitude + b0.HalfWidth;
+			b.HalfWidths[1] = midTest*d.magnitude + b0.HalfHeight;
+			b.HalfWidths[2] = midTest*d.magnitude + b0.HalfDepth;
+			//b = new AABB3D(b0.Center + adjustedD, midTest * d.magnitude
+			//	+ (b0.HalfWidth * 2), midTest * d.magnitude
+			//	+ (b0.HalfHeight * 2), midTest * d.magnitude
+			//	+ (b0.HalfDepth * 2));
 			//Debug.Log(b);
 
 			//intervalHalvedRects.Add(b);
@@ -76,13 +80,13 @@ namespace Assets.Scripts.SweptTests
 				if (wy > -hx)
 				{
 					//Debug.Log("Bottom: " + bottom);
-					b0.NormalCollision[1] = movingBox.Bottom.Normal;
+					b0.NormalCollision[1] = Vector3.down;
 				}
 				else
 				{
 					//Debug.Log("Right: " + right);
-					b0.NormalCollision[0] = movingBox.Right.Normal;
-					
+					b0.NormalCollision[0] = Vector3.right;
+
 				}
 			}
 			else
@@ -90,14 +94,14 @@ namespace Assets.Scripts.SweptTests
 				if (wy > -hx)
 				{
 					//Debug.Log("Left: " + left);
-					b0.NormalCollision[0] = movingBox.Left.Normal;
+					b0.NormalCollision[0] = Vector3.left;
 				}
 				else
 				{
 					//Debug.Log("Top: " + top);
 
-					b0.NormalCollision[1] = movingBox.Top.Normal;
-					
+					b0.NormalCollision[1] = Vector3.up;
+
 				}
 			}
 		}
